@@ -1,0 +1,1 @@
+{"group":"local","interactive":false,"local":true,"memoryLimit":1024,"name":"Local: C++ Tempelate","srcPath":"f:\\My cp\\C++ Tempelate.cpp","tests":[{"id":1595844434251,"input":"2  \n3\nRahul 4345964789 45\nRupendra 1457856987 58\nPriya 1478569820 45\n2\nTanuja 4310779415 97\nAkash 3689781245 43","output":""}],"timeLimit":3000,"url":"f:\\My cp\\C++ Tempelate.cpp"}

@@ -1,0 +1,1 @@
+{"group":"local","interactive":false,"local":true,"memoryLimit":1024,"name":"Local: C","srcPath":"f:\\My cp\\July 2020 Lunch time\\C.cpp","tests":[{"id":1595694115965,"input":"2\n2\n5 9\n7\n1 2 4 8 16 64 128","output":""}],"timeLimit":3000,"url":"f:\\My cp\\July 2020 Lunch time\\C.cpp"}
