@@ -102,8 +102,7 @@ void solve()
        
         ll int aa=a,bb=b,cc=a^b;
         ll int ccd=XNOR(a,b);
-       // deb2(cc,ccd);        
-        if(n%3==0)
+         if(n%3==0)
         cout<<max(ccd,cc)<<"\n";
         else if(n%3==1)
         cout<<aa<<"\n";
