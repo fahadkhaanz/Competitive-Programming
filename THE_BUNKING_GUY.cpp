@@ -57,7 +57,6 @@ void solve()
     { 
         ll int n;
         cin>>n;
-
         ll int sum=0;
         vl ar(n-1);
         for(int i=0;i<n-1;i++)
