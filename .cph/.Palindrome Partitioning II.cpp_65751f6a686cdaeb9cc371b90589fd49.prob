@@ -1,0 +1,1 @@
+{"group":"local","interactive":false,"local":true,"memoryLimit":1024,"name":"Local: Palindrome Partitioning II","srcPath":"f:\\My cp\\Palindrome Partitioning II.cpp","tests":[{"id":1598878617880,"input":"2\naba\naab","output":""}],"timeLimit":3000,"url":"f:\\My cp\\Palindrome Partitioning II.cpp"}
