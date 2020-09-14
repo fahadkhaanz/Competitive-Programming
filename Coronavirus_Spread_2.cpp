@@ -38,7 +38,7 @@ int rng(int lim) {
 }
 int mpow(int base, int exp); 
 void ipgraph(int n, int m);
-void dfs(int u);
+void dfs(int u, int par);
 
 const int mod = 1000000007;
 const int N = 3e5, M = N;
@@ -46,7 +46,6 @@ const int N = 3e5, M = N;
 
 vi g[N];
 int a[N];
-int vis[10001]={0};
 ll int gcd(ll int a, ll int b) 
 { 
     if (b == 0) 
@@ -56,51 +55,93 @@ ll int gcd(ll int a, ll int b)
 } 
 int tc=1;
 
+int c=0;
 
-void dfs(int v,int *vis,vector<int> adj[])
+
+void dfs1(int v,int vis[6],stack<float>st,vi &ans,vi adj[],float time[10][10])
 {  
 	if(vis[v]==1)
 	return;
-	//cout<<v<<" ";
+	ans.push_back(1);
 	vis[v]=1;
 	for(auto i:adj[v])
 	{
-		if(vis[i]==0)
-		dfs(i,vis,adj);
+		if(vis[i]==0&&time[v][i]>=st.top())
+        {
+            st.push(time[v][i]);
+            dfs1(i,vis,st,ans,adj,time);
+        }
+		
 	}
+
+    
 	
 }
 void solve()
-    {   
+    { 
+        int n;
+        cin>>n;
+        vi ar(n);
+        fo(i,n) cin>>ar[i];
+      
+        int best=n,worst=1,cc=1;
+        vector<int> adj[10];
+        for(int i=0;i<n;i++)
+        {
+            for(int j=i-1;j>=0;j--)
+            {
+                if(ar[j]>ar[i])
+                {
+                    adj[ar[i]].push_back(ar[j]);
+                    
+                }
 
-
-        cout<<(1<<20)<<endl;
-        return;
-        int v,e;
-	    cin>>v>>e;
-	    vector<int> adj[v];
-	    while(e--)
-	    {
-	        int a,b;
-	        cin>>a>>b;
-           // a--;b--;
-	        adj[a].push_back(b);
-	        adj[b].push_back(a);
+            }
+            for(int j=i+1;j<n;j++)
+            {
+                if(ar[i]>ar[j])
+                {   
+                    adj[ar[i]].push_back(ar[j]);
+                }
+            }
         }
-    int vis[v]={0};
-	int c=0;
-	for(int i=0;i<v;i++)
-	{
-       if(!vis[i])
-	   {
-		   dfs(i,vis,adj);
-		   c++;
-	   }
-	}
-	cout<<c<<"\n";
-	
-        
-    }
+        // for(int i=0;i<n;i++)
+        // {
+        //     for(auto j:adj[ar[i]]) cout<<j<<" ";cout<<endl;
+        // }
+        cout<<endl;
+      
+        for(int i=0;i<n;i++)
+        {
+            int vis[6];
+            memset(vis,0,sizeof(vis));
+            stack<float> st;
+            st.push(0.0);
+            vi ans;
+            dfs1(ar[i],vis,st,ans,adj,time);
+          //  for(auto ii:ans) cout<<ii<<" ";cout<<endl;
+            int c=count(all(ans),1);
+
+            best=min(best,c);
+            worst=max(worst,c);
+        }
+
+
+
+
+
+for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                cout<<time[ar[i]][ar[j]]<<" ";
+            }
+            cout<<endl;
+        }
+      
+       
+       cout<<best<<" "<<worst<<"\n";
+        }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
@@ -135,13 +176,10 @@ void ipgraph(int n, int m){
     }
 }
 
-void dfs(int i){
-     if(vis[i]==1)
-     return;
-     vis[i]=1;
-    for(int v:g[i]){
-    if(vis[v]==0)
-        dfs(v);
+void dfs(int u, int par){
+    for(int v:g[u]){
+        if (v == par) continue;
+        dfs(v, u);
     }
 }
 

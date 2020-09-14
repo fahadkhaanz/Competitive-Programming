@@ -1,0 +1,1 @@
+{"group":"local","interactive":false,"local":true,"memoryLimit":1024,"name":"Local: allSeptB","srcPath":"f:\\My cp\\allSeptB.cpp","tests":[{"id":1600014636530,"input":"2\n4\n4\n5\n2\n3","output":""}],"timeLimit":3000,"url":"f:\\My cp\\allSeptB.cpp"}

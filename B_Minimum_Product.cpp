@@ -38,7 +38,7 @@ int rng(int lim) {
 }
 int mpow(int base, int exp); 
 void ipgraph(int n, int m);
-void dfs(int u);
+void dfs(int u, int par);
 
 const int mod = 1000000007;
 const int N = 3e5, M = N;
@@ -46,7 +46,6 @@ const int N = 3e5, M = N;
 
 vi g[N];
 int a[N];
-int vis[10001]={0};
 ll int gcd(ll int a, ll int b) 
 { 
     if (b == 0) 
@@ -55,52 +54,21 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
-
-
-void dfs(int v,int *vis,vector<int> adj[])
-{  
-	if(vis[v]==1)
-	return;
-	//cout<<v<<" ";
-	vis[v]=1;
-	for(auto i:adj[v])
-	{
-		if(vis[i]==0)
-		dfs(i,vis,adj);
-	}
-	
+ll int ans(ll a,ll b,ll x,ll y,ll n)
+{   ll t=min(a-x,n);
+    a=a-t;
+    n=n-t;
+    if(n!=0)
+    {
+        b=b-min(n,b-y);
+    }
+    return a*b;
 }
 void solve()
-    {   
-
-
-        cout<<(1<<20)<<endl;
-        return;
-        int v,e;
-	    cin>>v>>e;
-	    vector<int> adj[v];
-	    while(e--)
-	    {
-	        int a,b;
-	        cin>>a>>b;
-           // a--;b--;
-	        adj[a].push_back(b);
-	        adj[b].push_back(a);
-        }
-    int vis[v]={0};
-	int c=0;
-	for(int i=0;i<v;i++)
-	{
-       if(!vis[i])
-	   {
-		   dfs(i,vis,adj);
-		   c++;
-	   }
-	}
-	cout<<c<<"\n";
-	
-        
-    }
+{
+    ll a,b,x,y,n;cin>>a>>b>>x>>y>>n;
+    cout<<min(ans(a,b,x,y,n),ans(b,a,y,x,n))<<"\n";
+}
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
@@ -135,13 +103,10 @@ void ipgraph(int n, int m){
     }
 }
 
-void dfs(int i){
-     if(vis[i]==1)
-     return;
-     vis[i]=1;
-    for(int v:g[i]){
-    if(vis[v]==0)
-        dfs(v);
+void dfs(int u, int par){
+    for(int v:g[u]){
+        if (v == par) continue;
+        dfs(v, u);
     }
 }
 

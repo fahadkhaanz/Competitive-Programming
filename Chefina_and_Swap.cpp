@@ -38,7 +38,7 @@ int rng(int lim) {
 }
 int mpow(int base, int exp); 
 void ipgraph(int n, int m);
-void dfs(int u);
+void dfs(int u, int par);
 
 const int mod = 1000000007;
 const int N = 3e5, M = N;
@@ -46,7 +46,6 @@ const int N = 3e5, M = N;
 
 vi g[N];
 int a[N];
-int vis[10001]={0};
 ll int gcd(ll int a, ll int b) 
 { 
     if (b == 0) 
@@ -55,51 +54,66 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
+unsigned ll int jugaad(ll int i,ll int j,ll int n,ll int tsum,unsigned ll int sum)
+{
+    ll int ans=-1;
+    while (i<=j)
+    {
+       ll int mid=(i+j)/2;
+       ll int amid=tsum-((mid*(mid-1))/2);
+       if(amid==sum)
+       return mid;
+       if(amid>sum)
+       {
+           i=mid+1;
 
+       }
+       else
+       {
+           j=mid-1;
+           ans=mid;
+       }
+       
 
-void dfs(int v,int *vis,vector<int> adj[])
-{  
-	if(vis[v]==1)
-	return;
-	//cout<<v<<" ";
-	vis[v]=1;
-	for(auto i:adj[v])
-	{
-		if(vis[i]==0)
-		dfs(i,vis,adj);
-	}
-	
+    }
+    return ans;
+    
 }
 void solve()
-    {   
-
-
-        cout<<(1<<20)<<endl;
-        return;
-        int v,e;
-	    cin>>v>>e;
-	    vector<int> adj[v];
-	    while(e--)
-	    {
-	        int a,b;
-	        cin>>a>>b;
-           // a--;b--;
-	        adj[a].push_back(b);
-	        adj[b].push_back(a);
+    { 
+        ll int n;
+        cin>>n;
+        if(n==3)
+        {
+            cout<<"2"<<"\n";
+            return;
+        } 
+        unsigned ll int tsum=(n*(n+1))/2;
+        if(tsum%2!=0)
+        {
+            cout<<"0"<<"\n";
+            return;
         }
-    int vis[v]={0};
-	int c=0;
-	for(int i=0;i<v;i++)
-	{
-       if(!vis[i])
-	   {
-		   dfs(i,vis,adj);
-		   c++;
-	   }
-	}
-	cout<<c<<"\n";
-	
-        
+        unsigned ll int sum=tsum/2;
+        ll int i=n/2,j=n;
+        ll int  c=n-jugaad(i,j,n,tsum,sum)+1;
+        if(tsum-((n-c)*(n-c+1))/2==sum)
+        {
+            ll int k=n-c;
+            unsigned ll int ans=c;
+            c=c-1;
+            ans+=(c * (c + 1)) / 2;
+            k=k-1;
+            ans+=(k * (k + 1))/2;
+            cout<<ans<<"\n";
+            return;
+
+        }
+        cout<<(c+1)<<endl;
+
+
+       
+
     }
 
 int main() {
@@ -135,13 +149,10 @@ void ipgraph(int n, int m){
     }
 }
 
-void dfs(int i){
-     if(vis[i]==1)
-     return;
-     vis[i]=1;
-    for(int v:g[i]){
-    if(vis[v]==0)
-        dfs(v);
+void dfs(int u, int par){
+    for(int v:g[u]){
+        if (v == par) continue;
+        dfs(v, u);
     }
 }
 

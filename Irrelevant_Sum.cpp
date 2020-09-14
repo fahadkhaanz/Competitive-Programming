@@ -38,7 +38,7 @@ int rng(int lim) {
 }
 int mpow(int base, int exp); 
 void ipgraph(int n, int m);
-void dfs(int u);
+void dfs(int u, int par);
 
 const int mod = 1000000007;
 const int N = 3e5, M = N;
@@ -46,7 +46,6 @@ const int N = 3e5, M = N;
 
 vi g[N];
 int a[N];
-int vis[10001]={0};
 ll int gcd(ll int a, ll int b) 
 { 
     if (b == 0) 
@@ -55,51 +54,42 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
-
-
-void dfs(int v,int *vis,vector<int> adj[])
-{  
-	if(vis[v]==1)
-	return;
-	//cout<<v<<" ";
-	vis[v]=1;
-	for(auto i:adj[v])
-	{
-		if(vis[i]==0)
-		dfs(i,vis,adj);
-	}
-	
-}
+int sumOfPrimes(int n) 
+{ 
+    // Array to store prime numbers 
+    bool prime[n + 1]; 
+  
+    // Create a boolean array "prime[0..n]" 
+    // and initialize all entries it as true. 
+    // A value in prime[i] will finally be 
+    // false if i is Not a prime, else true. 
+    memset(prime, true, n + 1); 
+  
+    for (int p = 2; p * p <= n; p++) { 
+  
+        // If prime[p] is not changed, then 
+        // it is a prime 
+        if (prime[p] == true) { 
+  
+            // Update all multiples of p 
+            for (int i = p * 2; i <= n; i += p) 
+                prime[i] = false; 
+        } 
+    } 
+  
+    // Return sum of primes generated through 
+    // Sieve. 
+    int sum = 0; 
+    for (int i = 2; i <= n; i++) 
+        if (prime[i]) 
+            sum += i; 
+    return sum; 
+} 
 void solve()
-    {   
-
-
-        cout<<(1<<20)<<endl;
-        return;
-        int v,e;
-	    cin>>v>>e;
-	    vector<int> adj[v];
-	    while(e--)
-	    {
-	        int a,b;
-	        cin>>a>>b;
-           // a--;b--;
-	        adj[a].push_back(b);
-	        adj[b].push_back(a);
-        }
-    int vis[v]={0};
-	int c=0;
-	for(int i=0;i<v;i++)
-	{
-       if(!vis[i])
-	   {
-		   dfs(i,vis,adj);
-		   c++;
-	   }
-	}
-	cout<<c<<"\n";
-	
-        
+    { 
+        int n;
+        cin>>n;
+        cout<<sumOfPrimes(n)%10<<"\n";
     }
 
 int main() {
@@ -135,13 +125,10 @@ void ipgraph(int n, int m){
     }
 }
 
-void dfs(int i){
-     if(vis[i]==1)
-     return;
-     vis[i]=1;
-    for(int v:g[i]){
-    if(vis[v]==0)
-        dfs(v);
+void dfs(int u, int par){
+    for(int v:g[u]){
+        if (v == par) continue;
+        dfs(v, u);
     }
 }
 

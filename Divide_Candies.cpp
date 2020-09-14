@@ -38,7 +38,7 @@ int rng(int lim) {
 }
 int mpow(int base, int exp); 
 void ipgraph(int n, int m);
-void dfs(int u);
+void dfs(int u, int par);
 
 const int mod = 1000000007;
 const int N = 3e5, M = N;
@@ -46,7 +46,6 @@ const int N = 3e5, M = N;
 
 vi g[N];
 int a[N];
-int vis[10001]={0};
 ll int gcd(ll int a, ll int b) 
 { 
     if (b == 0) 
@@ -55,60 +54,71 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
-
-
-void dfs(int v,int *vis,vector<int> adj[])
-{  
-	if(vis[v]==1)
-	return;
-	//cout<<v<<" ";
-	vis[v]=1;
-	for(auto i:adj[v])
-	{
-		if(vis[i]==0)
-		dfs(i,vis,adj);
-	}
-	
-}
-void solve()
+void solve(int k)
     {   
-
-
-        cout<<(1<<20)<<endl;
-        return;
-        int v,e;
-	    cin>>v>>e;
-	    vector<int> adj[v];
-	    while(e--)
-	    {
-	        int a,b;
-	        cin>>a>>b;
-           // a--;b--;
-	        adj[a].push_back(b);
-	        adj[b].push_back(a);
+        int n;
+        cin>>n;
+       // priority_queue<unsigned long long int>q;
+        unsigned ll int a=0,b=0;
+        string s(n,0);
+        for(int i=n;i>=1;i--)
+        {   
+            unsigned ll int p=pow(i,k);
+           // deb(p);
+            if(a==b||llabs((a+p)-b)<=llabs(a-(p+b)))
+            {
+                a=a+p;
+                s[i-1]='1';
+            }         // 25 16 9 4 1
+            else 
+            {
+                b+=p;
+                s[i-1]='0';
+            }
+           // deb2(a,b);
         }
-    int vis[v]={0};
-	int c=0;
-	for(int i=0;i<v;i++)
-	{
-       if(!vis[i])
-	   {
-		   dfs(i,vis,adj);
-		   c++;
-	   }
-	}
-	cout<<c<<"\n";
-	
+         unsigned ll int aa=0,bb=0;
+        string s1(n,0);
+        for(int i=n;i>=1;i--)
+        {   
+            unsigned ll int p=pow(i,k);
+           // deb(p);
+            if(aa==bb||llabs((aa+p)-bb)<=llabs(aa-(p+bb)))
+            {
+                aa=aa+p;
+                s1[i-1]='0';
+            }         // 25 16 9 4 1
+            else 
+            {
+                bb+=p;
+                s1[i-1]='1';
+            }
+           // deb2(a,b);
+        }
+        if(llabs(a-b)<=llabs(bb-aa))
+        {
+            cout<<llabs(a-b)<<"\n";
+            cout<<s<<"\n";
+        }
+        else
+        {
+            cout<<llabs(bb-aa)<<"\n";
+            cout<<s1<<"\n";
+        }
         
+        
+        return;
+
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
-
+   int k;
+   cin>>k;
     wi(t)
     {
-      solve();
+      solve(k);
     }
 
     return 0;
@@ -135,13 +145,10 @@ void ipgraph(int n, int m){
     }
 }
 
-void dfs(int i){
-     if(vis[i]==1)
-     return;
-     vis[i]=1;
-    for(int v:g[i]){
-    if(vis[v]==0)
-        dfs(v);
+void dfs(int u, int par){
+    for(int v:g[u]){
+        if (v == par) continue;
+        dfs(v, u);
     }
 }
 
