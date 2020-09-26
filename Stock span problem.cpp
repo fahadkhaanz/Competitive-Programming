@@ -56,31 +56,53 @@ ll int gcd(ll int a, ll int b)
 int tc=1;
 void solve()
     { 
-        int x1,y1,x2,y2;
-        cin>>x1>>y1>>x2>>y2;
-       if(y1!=y2&&x1!=x2&&abs(x1-x2)!=abs(y1-y2))
-       {
-           cout<<"-1\n";
-           return;
-       }
-       if(y1==y2)
-       {
-           cout<<x1<<" "<<y1+abs(x1-x2)<<" "<<x2<<" "<<y2+abs(x1-x2)<<"\n";
-           return;
-       }
-       if(x1==x2)
-       {
-           cout<<x1+abs(y1-y2)<<" "<<y1<<" "<<x2+abs(y1-y2)<<" "<<y2<<"\n";
-           return;
-       }
-       cout<<x2<<" "<<y1<<" "<<x1<<" "<<y2<<"\n";
+        ll int n;
+        cin>>n;
+        vl ar(n);
+        fo(i,n) cin>>ar[i];
+        stack<pair<int,int>> st;
+        vector<int>in;
+        for(int i=0;i<n;i++)
+        {
+            if(st.empty())
+            {
+                in.push_back(-1);
+            }
+            else if(st.size()>0&&st.top().first>ar[i])
+            {
+               in.push_back(st.top().second);
+            }
+            else
+            {
+                while(st.size()>0&&st.top().first<=ar[i])
+                {
+                    st.pop();
+                }
+                if(st.empty())
+            {
+                in.push_back(-1);
+            }
+            else if(st.size()>0&&st.top().first>ar[i])
+            {
+               in.push_back(st.top().second);
+            }
+
+            }
+            st.push({ar[i],i});
+            
+        }
+        for(int i=0;i<n;i++)
+        {
+            cout<<i-in[i]<<" ";
+        }
+        cout<<endl;
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
-//
-   // wi(t)
+
+    wi(t)
     {
       solve();
     }

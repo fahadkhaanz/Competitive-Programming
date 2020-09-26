@@ -56,31 +56,54 @@ ll int gcd(ll int a, ll int b)
 int tc=1;
 void solve()
     { 
-        int x1,y1,x2,y2;
-        cin>>x1>>y1>>x2>>y2;
-       if(y1!=y2&&x1!=x2&&abs(x1-x2)!=abs(y1-y2))
-       {
-           cout<<"-1\n";
-           return;
-       }
-       if(y1==y2)
-       {
-           cout<<x1<<" "<<y1+abs(x1-x2)<<" "<<x2<<" "<<y2+abs(x1-x2)<<"\n";
-           return;
-       }
-       if(x1==x2)
-       {
-           cout<<x1+abs(y1-y2)<<" "<<y1<<" "<<x2+abs(y1-y2)<<" "<<y2<<"\n";
-           return;
-       }
-       cout<<x2<<" "<<y1<<" "<<x1<<" "<<y2<<"\n";
+        ll int n,k;
+        cin>>n>>k;
+        string s;
+        cin>>s;
+        vl pre(n);
+        vl suf(n);
+        int fill=-1;
+        for(int i=0;i<n;i++)
+        {
+            if(s[i]=='1')
+            fill=i;
+            pre[i]=fill;
+        }
+        fill=-1;
+        for(int i=n-1;i>=0;i--)
+        {
+            if(s[i]=='1')
+            fill=i;
+            suf[i]=fill;
+        }
+        // for(int i=0;i<n;i++) cout<<pre[i]<<" ";
+        // cout<<endl;
+        // for(int i=0;i<n;i++) cout<<suf[i]<<" ";
+        // cout<<endl;
+          ll int big=-1;
+         ll int i=0,ans=0;
+        for(int i=0;i<n;i++)
+        {   
+             big=max(big,pre[i]);
+            if(s[i]=='0'&&abs(i-big)>k&&abs(i-suf[i])>k||s[i]=='0'&&big==-1&&(abs(i-suf[i])>k||suf[i]==-1))
+            {
+                s[i]='1';
+                ans++;
+                big=i;
+                //deb(i);
+            }
+        }
+
+       
+        
+        cout<<ans<<"\n";
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
-//
-   // wi(t)
+
+    wi(t)
     {
       solve();
     }

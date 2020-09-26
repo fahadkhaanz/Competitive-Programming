@@ -54,39 +54,28 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
+vi ar(101);
+int findmax(int a,int b,int n)
+{
+    vi br(n);
+    for(int i=0;i<n;i++) br[i]=ar[i];
+    for(int k=a;k<=b;k++)
+    br[k]=br[k]^1;
+    return count(all(br),1);
+
+
+}
 void solve()
     { 
         int n;
         cin>>n;
-        vi ar(n);
         fo(i,n) cin>>ar[i];
         int ans=0;
         for(int i=0;i<n;i++)
         {
-            for(int j=0;j<n;j++)
-            {      
-                 
-                for(int k=i;k<=j;k++)
-                {   vi br(n);
-                    int tmp=0;
-                    for(int z=0;z<n;z++)
-                     br[z]=ar[z];
-                    if(br[k]==0) br[k]=1;
-                    for(int z=0;z<n;z++)
-                    {
-                        if(br[z]==1) tmp++;
-                        else
-                        {
-                           ans=max(ans,tmp);
-                           tmp=0;
-                        }
-                        
-                    }
-                    ans=max(ans,tmp);
-                    
-                }
-               
-
+            for(int j=i;j<n;j++)
+            {
+                ans=max(ans,findmax(i,j,n));
             }
         }
         cout<<ans;

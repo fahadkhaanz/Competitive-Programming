@@ -56,31 +56,30 @@ ll int gcd(ll int a, ll int b)
 int tc=1;
 void solve()
     { 
-        int x1,y1,x2,y2;
-        cin>>x1>>y1>>x2>>y2;
-       if(y1!=y2&&x1!=x2&&abs(x1-x2)!=abs(y1-y2))
-       {
-           cout<<"-1\n";
-           return;
-       }
-       if(y1==y2)
-       {
-           cout<<x1<<" "<<y1+abs(x1-x2)<<" "<<x2<<" "<<y2+abs(x1-x2)<<"\n";
-           return;
-       }
-       if(x1==x2)
-       {
-           cout<<x1+abs(y1-y2)<<" "<<y1<<" "<<x2+abs(y1-y2)<<" "<<y2<<"\n";
-           return;
-       }
-       cout<<x2<<" "<<y1<<" "<<x1<<" "<<y2<<"\n";
+        ll int n;
+        cin>>n;
+        vl ar(n);
+        fo(i,n) cin>>ar[i];
+        vl br(n);
+        br=ar;
+        sortall(br);
+        ll int ans=0;
+        vl time(n);
+        time[0]=br[0];
+        for(int i=1;i<n;i++)
+        {
+            time[i]=time[i]+br[i-1];
+            if(br[i]>=time[i]) ans++;
+        }
+
+        cout<<ans<<"\n";
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
-//
-   // wi(t)
+
+  //  wi(t)
     {
       solve();
     }

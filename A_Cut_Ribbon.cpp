@@ -57,16 +57,16 @@ ll int gcd(ll int a, ll int b)
 int tc=1;
 void solve()
     { 
-        int n,a,b,c;
-        cin>>n>>a>>b>>c;
-        int ar[3]={a,b,c};
-        sort(ar,ar+3);
-        int ans=0;
-        int i=0;
-        while(n>0)
+        int n,a,b,c,z,ans=0;
+        cin>>n>>a>>b>>c;  //ax+by+cz=n;
+        for(int i=0;i<=n;i++)
         {
-            ans=ans+n/ar[i];
-            n=n%ar[i++];
+            for(int j=0;j<=n;j++)
+            {    
+                if((n>=(a*i+b*j))&&(n-(a*i+b*j))%c==0)
+                { z=(n-(a*i+b*j))/c;ans=max(ans,i+j+z);} 
+                
+            }
         }
         cout<<ans<<"\n";
     }

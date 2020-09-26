@@ -56,31 +56,68 @@ ll int gcd(ll int a, ll int b)
 int tc=1;
 void solve()
     { 
-        int x1,y1,x2,y2;
-        cin>>x1>>y1>>x2>>y2;
-       if(y1!=y2&&x1!=x2&&abs(x1-x2)!=abs(y1-y2))
-       {
-           cout<<"-1\n";
-           return;
-       }
-       if(y1==y2)
-       {
-           cout<<x1<<" "<<y1+abs(x1-x2)<<" "<<x2<<" "<<y2+abs(x1-x2)<<"\n";
-           return;
-       }
-       if(x1==x2)
-       {
-           cout<<x1+abs(y1-y2)<<" "<<y1<<" "<<x2+abs(y1-y2)<<" "<<y2<<"\n";
-           return;
-       }
-       cout<<x2<<" "<<y1<<" "<<x1<<" "<<y2<<"\n";
+        ll int n;
+        cin>>n;
+        vector<pair<int,int>> ar(n);
+        for(int i=0;i<n;i++)
+        {
+            cin>>ar[i].first;
+            cin>>ar[i].second;
+        }
+        sortall(ar);
+        int x=0,y=0;
+        string s=" ";
+        for(int i=0;i<n;i++)
+        {
+            
+            if(ar[i].first>=x)
+           {    int t=abs(ar[i].first-x);
+                while(t--)
+           {
+                s.push_back('R');
+           }
+           x=ar[i].first;
+           }
+           else
+           {
+               {
+            cout<<"NO\n";
+            return;
+                 }
+           }
+
+           if(ar[i].second>=y)
+            { int t=abs(ar[i].second-y);
+               while(t--)
+           {
+                s.push_back('U');
+           }
+           y=ar[i].second;
+           }
+            else
+           {
+               {
+            cout<<"NO\n";
+            return;
+                 }
+           }
+
+        }
+       // deb(s);
+        
+        {
+            cout<<"YES\n";
+            cout<<s<<"\n";
+        }
+       
+        
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
-//
-   // wi(t)
+
+    wi(t)
     {
       solve();
     }
