@@ -58,38 +58,15 @@ void solve()
     { 
         ll int n;
         cin>>n;
-        vl ar(n);
-        fo(i,n) cin>>ar[i];
-        vl br(n);
-        br=ar;
-        sortall(br);
-        // for(auto i:br) cout<<i<<" ";cout<<endl;
-        ll int ans=0;
-        vl time(n);
-        ll int sum=0;
-      //  cout<<"0 ";
-          ar=br;
-        for(int i=0;i<ar.size();i++)
-        {    
-            
-            if(sum<=ar[i])
-            {
-                sum+=ar[i];
-                ans++;
-            }
-            //deb(ar[i]);
-            
-           
-        }
-   
-        cout<<ans<<"\n";
+        if(n&1) cout<<n/2+1<<"\n";
+        else cout<<n/2<<"\n";
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
-  //  wi(t)
+    wi(t)
     {
       solve();
     }

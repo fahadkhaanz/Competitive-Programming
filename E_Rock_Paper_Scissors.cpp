@@ -54,42 +54,73 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
+ll int ans(ll int r1,ll int s1,ll int p1,ll int r2,ll int s2,ll int p2 )
+{
+    ll int ans=0;
+    ll int t=min(r1,s2);
+  //  deb2(r1,s2);
+   // deb(t);
+    ans+=t;
+    r1=r1-t;
+    s2=s2-t;
+    t=min(s1,p2);
+       // deb(t);
+
+    ans+=t;
+    s1=s1-t;
+    p2=p2-t;
+    t=min(p1,r2);
+       // deb(t);
+
+    ans+=t;
+    p1=p1-t;
+    r2=r2-t;
+    return ans;
+    
+
+}
+ll int ans1(ll int r1,ll int s1,ll int p1,ll int r2,ll int s2,ll int p2 )
+{
+    ll int ans=0;
+    ll int t=min(r1,p2+r2)+min(s1,s2+r2)+min(p1,p2+s2);
+    return t;
+  //  deb2(r1,s2);
+   // deb(t);
+    ans+=t;
+    r1=r1-t;
+    s2=s2-t;
+    t=min(s1,p2);
+       // deb(t);
+
+    ans+=t;
+    s1=s1-t;
+    p2=p2-t;
+    t=min(p1,r2);
+       // deb(t);
+
+    ans+=t;
+    p1=p1-t;
+    r2=r2-t;
+    return ans;
+    
+
+}
+             // r-->s
+             // s-->p
+              //p-->r
 void solve()
-    { 
-        ll int n;
-        cin>>n;
-        vl ar(n);
-        fo(i,n) cin>>ar[i];
-        vl br(n);
-        br=ar;
-        sortall(br);
-        // for(auto i:br) cout<<i<<" ";cout<<endl;
-        ll int ans=0;
-        vl time(n);
-        ll int sum=0;
-      //  cout<<"0 ";
-          ar=br;
-        for(int i=0;i<ar.size();i++)
-        {    
-            
-            if(sum<=ar[i])
-            {
-                sum+=ar[i];
-                ans++;
-            }
-            //deb(ar[i]);
-            
-           
-        }
-   
-        cout<<ans<<"\n";
+    {    int n;
+    cin>>n;
+        ll int r1,s1,p1,r2,s2,p2;
+        cin>>r1>>s1>>p1>>r2>>s2>>p2;
+        cout<<n-ans1(r1,s1,p1,r2,s2,p2)<<" "<<ans(r1,s1,p1,r2,s2,p2);
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
-  //  wi(t)
+   // wi(t)
     {
       solve();
     }

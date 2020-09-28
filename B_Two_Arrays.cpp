@@ -56,40 +56,50 @@ ll int gcd(ll int a, ll int b)
 int tc=1;
 void solve()
     { 
-        ll int n;
-        cin>>n;
-        vl ar(n);
-        fo(i,n) cin>>ar[i];
-        vl br(n);
-        br=ar;
-        sortall(br);
-        // for(auto i:br) cout<<i<<" ";cout<<endl;
-        ll int ans=0;
-        vl time(n);
-        ll int sum=0;
-      //  cout<<"0 ";
-          ar=br;
-        for(int i=0;i<ar.size();i++)
-        {    
-            
-            if(sum<=ar[i])
-            {
-                sum+=ar[i];
-                ans++;
-            }
-            //deb(ar[i]);
-            
-           
-        }
-   
-        cout<<ans<<"\n";
+        ll N,K;
+        cin>>N>>K;
+
+    vl  A(N); 
+    ll c=0;
+    for(ll i=0;i<N;++i)
+    {
+        cin>>A[i]; if(K/2==A[i]) c++;
     }
+    if(K&1)
+    {
+        for(ll i=0;i<N;++i)
+        {
+            if(A[i]<=K/2)cout<<"0 ";
+            else cout<<"1 ";
+        }
+        cout<<"\n";
+        return;
+    }
+    else
+    {
+
+    ll a=0;
+    for(ll i=0;i<N;++i)
+    {
+        if(A[i]<K/2)cout<<"0 ";
+        else if(A[i]==K/2)
+        {
+            
+            if(a<c/2)cout<<"0 ";
+            else cout<<"1 ";
+            a++;
+        }
+        else  cout<<"1 ";
+    }
+    cout<<"\n";
+    }
+}
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
-  //  wi(t)
+    wi(t)
     {
       solve();
     }

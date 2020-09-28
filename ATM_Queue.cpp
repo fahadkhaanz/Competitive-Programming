@@ -56,40 +56,32 @@ ll int gcd(ll int a, ll int b)
 int tc=1;
 void solve()
     { 
-        ll int n;
-        cin>>n;
+        ll int n,x;
+        cin>>n>>x;
         vl ar(n);
         fo(i,n) cin>>ar[i];
-        vl br(n);
-        br=ar;
-        sortall(br);
-        // for(auto i:br) cout<<i<<" ";cout<<endl;
-        ll int ans=0;
-        vl time(n);
-        ll int sum=0;
-      //  cout<<"0 ";
-          ar=br;
-        for(int i=0;i<ar.size();i++)
-        {    
-            
-            if(sum<=ar[i])
+        vl ans;
+        int i=0;
+        while(ar.size()!=0)
+        {
+            if(ar.front()<=x)
+            {ans.push_back(i+1);ar.erase(ar.begin()+i);}
+            else
             {
-                sum+=ar[i];
-                ans++;
+                ll int k=ar.front()-x;
+                ar.erase(ar.begin()+i);
+                ar.push_back(k);
             }
-            //deb(ar[i]);
-            
-           
-        }
-   
-        cout<<ans<<"\n";
+         }
+         for(auto i:ans) cout<<i<<" ";
+         cout<<endl;    
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
-  //  wi(t)
+    wi(t)
     {
       solve();
     }
