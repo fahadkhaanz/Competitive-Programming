@@ -1,4 +1,3 @@
-
 //git pull --rebase origin master
 #include<bits/stdc++.h>
 using namespace std;
@@ -19,7 +18,7 @@ using namespace std;
 #define F first
 #define S second
 #define all(x) x.begin(), x.end()
-#define clr(x) memset(x, 0, sizeof(x))
+#define clr(x) memset(x, -1, sizeof(x))
 #define sortall(x) sort(all(x))
 #define tr(it, a) for(auto it = a.begin(); it != a.end(); it++)
 #define PI 3.1415926535897932384626
@@ -55,37 +54,105 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
-int dp[5002][5000];
-int knap(vi ar,int w,int n)
+int ar[100005+1][3];
+int dp[100005][3];
+int gain(int i,int n,int prev)
 {
-    if(n==0&&w==0) return INT_MIN;
-    if(n>=1&&w==0) return 0;
-    if(n==0&&w>=1) return INT_MIN;
-    if(dp[n][w]!=-1) return dp[n][w];
+     if(i>=n) return 0;
+    // if(dp[i][prev]!=-1) return dp[i][prev];
+    int k=0;
+    
+    if(prev==-1)
+    {   
+        if(dp[i+1][1]==-1) 
+        {
+           dp[i+1][1]= gain(i+1,n,1);
+        }
+        if(dp[i+1][2]==-1) 
+        {
+           dp[i+1][2]= gain(i+1,n,2);
+        }
+        if(dp[i+1][0]==-1) 
+        {
+           dp[i+1][0]= gain(i+1,n,0);
+        }
 
-    if(ar[n-1]<=w)
-    {
-        return dp[n][w]=max(1+knap(ar,w-ar[n-1],n),knap(ar,w,n-1));
+        k=max(k,max(ar[i][0]+dp[i+1][1],ar[i][0]+dp[i+1][2]));
+        k=max(k,max(ar[i][1]+dp[i+1][0],ar[i][1]+dp[i+1][2]));
+        k=max(k,max(ar[i][2]+dp[i+1][0],ar[i][2]+dp[i+1][1]));
     }
-    else 
-    return dp[n][w]=knap(ar,w,n-1);
+     
+    else if(0==prev)
+    {       
+         if(dp[i+1][1]==-1) 
+        {
+           dp[i+1][1]= gain(i+1,n,1);
+        }
+        if(dp[i+1][2]==-1) 
+        {
+           dp[i+1][2]= gain(i+1,n,2);
+        }
+       
 
+        k=max(k,max(ar[i][0]+dp[i+1][1],ar[i][0]+dp[i+1][2]));
+        
+    }
+    
+    else if(1==prev)
+    {
+       
+        if(dp[i+1][2]==-1) 
+        {
+           dp[i+1][2]= gain(i+1,n,2);
+        }
+        if(dp[i+1][0]==-1) 
+        {
+           dp[i+1][0]= gain(i+1,n,0);
+        }
+
+       
+        k=max(k,max(ar[i][1]+dp[i+1][0],ar[i][1]+dp[i+1][2]));
+       
+    }
+   
+    else
+    {
+        if(dp[i+1][1]==-1) 
+        {
+           dp[i+1][1]= gain(i+1,n,1);
+        }
+        
+        if(dp[i+1][0]==-1) 
+        {
+           dp[i+1][0]= gain(i+1,n,0);
+        }
+
+       
+        k=max(k,max(ar[i][2]+dp[i+1][0],ar[i][2]+dp[i+1][1]));
+    }
+   
+    return k;
 }
 void solve()
     { 
-        int w,a,b,c,z,ans=0;
-        cin>>w>>a>>b>>c;  //ax+by+cz=n;
-        vi ar(3); ar[0]=a;ar[1]=b;ar[2]=c;
-        memset(dp,-1,sizeof(dp));
-        cout<<knap(ar,w,3);
-       // cout<<ans<<"\n";
+        int n;
+        cin>>n;
+        clr(dp);
+        fo(i,n)
+        {
+            for(int j=0;j<3;j++) 
+            cin>>ar[i][j];
+        }
+        
+        ar[n][0]=ar[n][1]=ar[n][2]=0;
+        cout<<gain(0,n+1,-1);
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
-   // wi(t)
+    // wi(t)
     {
       solve();
     }

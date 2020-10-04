@@ -1,4 +1,3 @@
-
 //git pull --rebase origin master
 #include<bits/stdc++.h>
 using namespace std;
@@ -55,37 +54,43 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
-int dp[5002][5000];
-int knap(vi ar,int w,int n)
-{
-    if(n==0&&w==0) return INT_MIN;
-    if(n>=1&&w==0) return 0;
-    if(n==0&&w>=1) return INT_MIN;
-    if(dp[n][w]!=-1) return dp[n][w];
-
-    if(ar[n-1]<=w)
-    {
-        return dp[n][w]=max(1+knap(ar,w-ar[n-1],n),knap(ar,w,n-1));
-    }
-    else 
-    return dp[n][w]=knap(ar,w,n-1);
-
-}
 void solve()
     { 
-        int w,a,b,c,z,ans=0;
-        cin>>w>>a>>b>>c;  //ax+by+cz=n;
-        vi ar(3); ar[0]=a;ar[1]=b;ar[2]=c;
+        int n,w;
+        cin>>n>>w;
+        vi wt(n),v(n);
+        fo(i,n) cin>>v[i];
+        fo(i,n) cin>>wt[i];
+        int dp[n+1][w+1];
         memset(dp,-1,sizeof(dp));
-        cout<<knap(ar,w,3);
-       // cout<<ans<<"\n";
+        for(int i=0;i<=n;i++)
+        {
+            for(int j=0;j<=w;j++)
+            {
+                if(i==0||j==0) 
+                dp[i][j]=0;
+            }
+        }
+         for(int i=1;i<=n;i++)
+        {
+            for(int j=1;j<=w;j++)
+            {
+                if(wt[i-1]<=j)
+                dp[i][j]=max(v[i-1]+dp[i-1][j-wt[i-1]],dp[i-1][j]);
+                else 
+                dp[i][j]=dp[i-1][j];
+            }
+
+        }
+       cout<<dp[n][w]<<"\n";
+
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
-   // wi(t)
+    wi(t)
     {
       solve();
     }

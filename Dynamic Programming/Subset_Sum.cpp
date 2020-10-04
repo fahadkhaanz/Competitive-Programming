@@ -1,4 +1,3 @@
-
 //git pull --rebase origin master
 #include<bits/stdc++.h>
 using namespace std;
@@ -19,7 +18,7 @@ using namespace std;
 #define F first
 #define S second
 #define all(x) x.begin(), x.end()
-#define clr(x) memset(x, 0, sizeof(x))
+#define clr(x) memset(x, -1, sizeof(x))
 #define sortall(x) sort(all(x))
 #define tr(it, a) for(auto it = a.begin(); it != a.end(); it++)
 #define PI 3.1415926535897932384626
@@ -55,37 +54,56 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
-int dp[5002][5000];
-int knap(vi ar,int w,int n)
+int dp[(ll)1000002][(ll)1000002];
+bool subsum(int ar[],int sum,int n)
 {
-    if(n==0&&w==0) return INT_MIN;
-    if(n>=1&&w==0) return 0;
-    if(n==0&&w>=1) return INT_MIN;
-    if(dp[n][w]!=-1) return dp[n][w];
-
-    if(ar[n-1]<=w)
+    if(n==0&&sum==0) return true;
+    if(sum==0) return true;
+    if(n==0&&sum>0) return false; 
+    if(ar[n-1]<=sum)
     {
-        return dp[n][w]=max(1+knap(ar,w-ar[n-1],n),knap(ar,w,n-1));
+        return (subsum(ar,sum-ar[n-1],n-1)||subsum(ar,sum,n-1));
     }
-    else 
-    return dp[n][w]=knap(ar,w,n-1);
-
+    else
+    {
+        return subsum(ar,sum,n-1);
+    }
+    
 }
 void solve()
     { 
-        int w,a,b,c,z,ans=0;
-        cin>>w>>a>>b>>c;  //ax+by+cz=n;
-        vi ar(3); ar[0]=a;ar[1]=b;ar[2]=c;
-        memset(dp,-1,sizeof(dp));
-        cout<<knap(ar,w,3);
-       // cout<<ans<<"\n";
+        int n,x;
+        cin>>n;
+        int ar[n];
+        fo(i,n) cin>>ar[i];
+        clr(dp);
+        int sum=0;
+        for(int i=0;i<n;i++) sum+=ar[i];
+         int t;
+         if(sum%2!=0)
+         t=sum/2+1;
+         else
+         {
+             t=sum/2;
+         }
+         
+          for(int i=sum/2;i>=0;i--)
+      {   
+          
+          if(subsum(ar,i,n)==true)
+          {
+          cout<<sum-2*i<<"\n";
+          break;
+          }
+      }
+        
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
-   // wi(t)
+    wi(t)
     {
       solve();
     }

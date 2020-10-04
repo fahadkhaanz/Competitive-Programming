@@ -1,4 +1,3 @@
-
 //git pull --rebase origin master
 #include<bits/stdc++.h>
 using namespace std;
@@ -19,7 +18,7 @@ using namespace std;
 #define F first
 #define S second
 #define all(x) x.begin(), x.end()
-#define clr(x) memset(x, 0, sizeof(x))
+#define clr(x) memset(x, -1, sizeof(x))
 #define sortall(x) sort(all(x))
 #define tr(it, a) for(auto it = a.begin(); it != a.end(); it++)
 #define PI 3.1415926535897932384626
@@ -55,37 +54,36 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
-int dp[5002][5000];
-int knap(vi ar,int w,int n)
+char ar[1002][1002];
+int dp[1002][1002];
+int path(int i,int j,int n,int m)
 {
-    if(n==0&&w==0) return INT_MIN;
-    if(n>=1&&w==0) return 0;
-    if(n==0&&w>=1) return INT_MIN;
-    if(dp[n][w]!=-1) return dp[n][w];
-
-    if(ar[n-1]<=w)
-    {
-        return dp[n][w]=max(1+knap(ar,w-ar[n-1],n),knap(ar,w,n-1));
-    }
-    else 
-    return dp[n][w]=knap(ar,w,n-1);
-
+    if(i>=n||j>=m||ar[i][j]=='#') return 0;
+    if(i==n-1&&j==m-1) return 1;
+    if(dp[i+1][j]==-1) dp[i+1][j]=path(i+1,j,n,m)%mod;
+    if(dp[i][j+1]==-1)  dp[i][j+1]=path(i,j+1,n,m)%mod;
+    return dp[i+1][j]+dp[i][j+1];
 }
+   
 void solve()
     { 
-        int w,a,b,c,z,ans=0;
-        cin>>w>>a>>b>>c;  //ax+by+cz=n;
-        vi ar(3); ar[0]=a;ar[1]=b;ar[2]=c;
-        memset(dp,-1,sizeof(dp));
-        cout<<knap(ar,w,3);
-       // cout<<ans<<"\n";
+        int n,m;
+        cin>>n>>m;
+        
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            cin>>ar[i][j];
+        }
+        clr(dp);
+        cout<<path(0,0,n,m)%mod;
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
-   // wi(t)
+    // wi(t)
     {
       solve();
     }

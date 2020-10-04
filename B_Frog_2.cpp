@@ -1,4 +1,3 @@
-
 //git pull --rebase origin master
 #include<bits/stdc++.h>
 using namespace std;
@@ -19,7 +18,7 @@ using namespace std;
 #define F first
 #define S second
 #define all(x) x.begin(), x.end()
-#define clr(x) memset(x, 0, sizeof(x))
+#define clr(x) memset(x, -1, sizeof(x))
 #define sortall(x) sort(all(x))
 #define tr(it, a) for(auto it = a.begin(); it != a.end(); it++)
 #define PI 3.1415926535897932384626
@@ -55,30 +54,26 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
-int dp[5002][5000];
-int knap(vi ar,int w,int n)
-{
-    if(n==0&&w==0) return INT_MIN;
-    if(n>=1&&w==0) return 0;
-    if(n==0&&w>=1) return INT_MIN;
-    if(dp[n][w]!=-1) return dp[n][w];
 
-    if(ar[n-1]<=w)
-    {
-        return dp[n][w]=max(1+knap(ar,w-ar[n-1],n),knap(ar,w,n-1));
-    }
-    else 
-    return dp[n][w]=knap(ar,w,n-1);
 
-}
 void solve()
     { 
-        int w,a,b,c,z,ans=0;
-        cin>>w>>a>>b>>c;  //ax+by+cz=n;
-        vi ar(3); ar[0]=a;ar[1]=b;ar[2]=c;
-        memset(dp,-1,sizeof(dp));
-        cout<<knap(ar,w,3);
-       // cout<<ans<<"\n";
+        int n,k;
+        cin>>n>>k;
+        int ar[n];
+        fo(i,n) cin>>ar[i];
+        vi dp(100005,INT_MAX);
+        dp[0]=0;
+        for(int i=0;i<n;i++)
+        {
+            for(int j=i+1;j<=i+k;j++)
+            {
+                if(j<n)
+                dp[j]=min(dp[j],dp[i]+abs(ar[i]-ar[j]));
+            }
+            
+        }
+        cout<<dp[n-1]<<"\n";
     }
 
 int main() {
