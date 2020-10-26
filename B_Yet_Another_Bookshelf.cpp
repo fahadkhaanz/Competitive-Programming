@@ -56,37 +56,29 @@ ll int gcd(ll int a, ll int b)
 int tc=1;
 void solve()
     { 
-        ll int n;
+        int n;
         cin>>n;
-        vl ar(n),br(n);
-        int maxin=0;
-        ll int mx=0;
-        fo(i,n) {cin>>ar[i];}
-        for(int a=0;a<n;++a)
-	    {
-	    ll int ans = ar[a];
-	    ll int  curr = 0;
-	    for (int i = 0; i < a; ++i)
-	    {
-	        curr  = (curr + ar[i])/2;
-	    }
-	    ans +=curr;
-	    curr=0;
-	    for(int i=n-1;i>a;--i)
-	    {
-	        curr  = (curr + ar[i])/2;
-	    }
-	    mx = max(mx,(ans + curr ) );
-	    }
-       cout<< mx <<'\n';
-
+        vi ar(n);
+        fo(i,n) cin>>ar[i];
+        ll int ans=0,fans=0;;
+        for(int i=0;i<n;i++)
+        {   
+            if(ar[i]==0) continue;
+            ans=0;
+            for(int j=i+1;j<n;j++)
+            {
+                if(ar[j]==0) ans++;
+                if(ar[j]==1) {i=j-1;fans+=ans;break;}
+            }
+        }
+        cout<<fans<<"\n";
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
-    // wi(t)
+    wi(t)
     {
       solve();
     }

@@ -54,39 +54,93 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
+bool isPrime(int n)  
+{  
+    // Corner cases  
+    if (n <= 1)  return false;  
+    if (n <= 3)  return true;  
+    
+    // This is checked so that we can skip   
+    // middle five numbers in below loop  
+    if (n%2 == 0 || n%3 == 0) return false;  
+    
+    for (int i=5; i*i<=n; i=i+6)  
+        if (n%i == 0 || n%(i+2) == 0)  
+           return false;  
+    
+    return true;  
+}  
+  
+// Function to return the smallest 
+// prime number greater than N 
+int nextPrime(int N) 
+{ 
+  
+    // Base case 
+    if (N <= 1) 
+        return 2; 
+  
+    int prime = N; 
+    bool found = false; 
+  
+    // Loop continuously until isPrime returns 
+    // true for a number greater than n 
+    while (!found) { 
+        prime++; 
+  
+        if (isPrime(prime)) 
+            found = true; 
+    } 
+  
+    return prime; 
+} 
 void solve()
     { 
-        ll int n;
+        int n;
         cin>>n;
-        vl ar(n),br(n);
-        int maxin=0;
-        ll int mx=0;
-        fo(i,n) {cin>>ar[i];}
-        for(int a=0;a<n;++a)
-	    {
-	    ll int ans = ar[a];
-	    ll int  curr = 0;
-	    for (int i = 0; i < a; ++i)
-	    {
-	        curr  = (curr + ar[i])/2;
-	    }
-	    ans +=curr;
-	    curr=0;
-	    for(int i=n-1;i>a;--i)
-	    {
-	        curr  = (curr + ar[i])/2;
-	    }
-	    mx = max(mx,(ans + curr ) );
-	    }
-       cout<< mx <<'\n';
-
+        int k=nextPrime(n+1);
+        int s=0;
+        int ar[n][n];
+        for(int i=0;i<n-1;i++)
+        {
+            for(int j=0;j<n-1;j++)
+            {  
+                if(s==j)
+                {
+                    cout<<k-1<<" "<<"1 ";
+                   
+                }
+                else
+                {
+                   cout<<"0 ";
+                }
+                
+            }
+            s++;
+            cout<<"\n";
+        }
+        for(int i=0;i<n;i++)
+        {
+            if(i==0)
+            cout<<"1 ";
+            else if(i==n-1)
+            {
+                cout<<k-1<<" ";
+            }
+            else
+            {
+                cout<<"0 ";
+            }
+            
+        }
+        cout<<endl;
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
-    // wi(t)
+    wi(t)
     {
       solve();
     }

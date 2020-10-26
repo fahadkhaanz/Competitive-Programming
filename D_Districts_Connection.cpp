@@ -58,27 +58,64 @@ void solve()
     { 
         ll int n;
         cin>>n;
-        vl ar(n),br(n);
-        int maxin=0;
-        ll int mx=0;
-        fo(i,n) {cin>>ar[i];}
-        for(int a=0;a<n;++a)
-	    {
-	    ll int ans = ar[a];
-	    ll int  curr = 0;
-	    for (int i = 0; i < a; ++i)
-	    {
-	        curr  = (curr + ar[i])/2;
-	    }
-	    ans +=curr;
-	    curr=0;
-	    for(int i=n-1;i>a;--i)
-	    {
-	        curr  = (curr + ar[i])/2;
-	    }
-	    mx = max(mx,(ans + curr ) );
-	    }
-       cout<< mx <<'\n';
+        map<ll int,ll int> mep;
+        vl ar(n);
+        fo(i,n) {cin>>ar[i];mep[ar[i]]++;}
+        ll int maxkey=0,maxval=0;
+        for(auto i:mep)
+        {
+            if(i.S>maxval)
+            {
+                maxval=i.S;
+                maxkey=i.F;
+            }
+        }
+        if(maxval==n)
+        {
+            cout<<"NO\n";
+            return;
+        }
+        ll int maxin=0;
+        vi same;
+        for(int i=0;i<n;i++)
+        {
+            if(ar[i]==maxkey)
+            {
+                maxin=i;
+                same.push_back(i);
+            }
+        }
+        same.pop_back();
+        cout<<"YES\n";
+        // for(int i=maxin;i>=0;i--)
+        {
+            for(int j=maxin;j>=0;j--)
+            {
+                if(ar[maxin]!=ar[j])
+                {
+                    cout<<maxin+1<<" "<<j+1<<"\n";
+                }
+
+            }
+            for(int j=maxin;j<n;j++)
+            {
+                if(ar[maxin]!=ar[j])
+                {
+                    cout<<maxin+1<<" "<<j+1<<"\n";
+                }
+            }
+        }
+        for(int i=0;i<same.size();i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(ar[same[i]]!=ar[j])
+                {
+                    cout<<same[i]+1<<" "<<j+1<<"\n";
+                    break;
+                }
+            }
+        }
 
     }
 
@@ -86,7 +123,7 @@ int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
-    // wi(t)
+    wi(t)
     {
       solve();
     }

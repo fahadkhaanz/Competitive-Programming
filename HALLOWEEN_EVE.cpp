@@ -56,30 +56,18 @@ ll int gcd(ll int a, ll int b)
 int tc=1;
 void solve()
     { 
-        ll int n;
-        cin>>n;
-        vl ar(n),br(n);
-        int maxin=0;
-        ll int mx=0;
-        fo(i,n) {cin>>ar[i];}
-        for(int a=0;a<n;++a)
-	    {
-	    ll int ans = ar[a];
-	    ll int  curr = 0;
-	    for (int i = 0; i < a; ++i)
-	    {
-	        curr  = (curr + ar[i])/2;
-	    }
-	    ans +=curr;
-	    curr=0;
-	    for(int i=n-1;i>a;--i)
-	    {
-	        curr  = (curr + ar[i])/2;
-	    }
-	    mx = max(mx,(ans + curr ) );
-	    }
-       cout<< mx <<'\n';
-
+        ll int n,k;
+        cin>>n>>k;
+        vl ar(n);
+        fo(i,n) cin>>ar[i];
+        ll int ans=LONG_MAX;
+        sortall(ar);
+        k--;
+        for(int i=0;i<n-k;i++)
+        {
+            ans=min(ans,ar[i+k]-ar[i]);
+        }
+        cout<<ans;
     }
 
 int main() {

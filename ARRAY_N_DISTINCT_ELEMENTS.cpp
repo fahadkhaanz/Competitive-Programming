@@ -54,39 +54,60 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
+bool horha(map<ll,ll> M,map<ll,ll> M1)
+{
+    for(auto i : M)
+    {
+        if(i.second>M1[i.first])return false;
+    }
+    return true;
+}
 void solve()
     { 
-        ll int n;
-        cin>>n;
-        vl ar(n),br(n);
-        int maxin=0;
-        ll int mx=0;
-        fo(i,n) {cin>>ar[i];}
-        for(int a=0;a<n;++a)
-	    {
-	    ll int ans = ar[a];
-	    ll int  curr = 0;
-	    for (int i = 0; i < a; ++i)
-	    {
-	        curr  = (curr + ar[i])/2;
-	    }
-	    ans +=curr;
-	    curr=0;
-	    for(int i=n-1;i>a;--i)
-	    {
-	        curr  = (curr + ar[i])/2;
-	    }
-	    mx = max(mx,(ans + curr ) );
-	    }
-       cout<< mx <<'\n';
+     ll N,K;
+     cin>>N>>K;
+    map<ll,ll> M,M1;
+    ll A[N]; 
 
+    for(ll i=0;i<N;++i)
+    {
+        cin>>A[i];
+        M[A[i]]=1;
+    }
+    ll ans=0;
+    ll s=0;
+    for(ll i=0;i<K;++i)
+    {
+        M1[A[i]]++;
+        s +=A[i];
+    }
+
+    if(horha(M,M1))
+    {
+        ans = max(ans,s);
+    }
+
+    for(ll i=K;i<N;++i)
+    {
+        --M1[A[i-K]];
+        ++M1[A[i]];
+         s +=A[i];
+        s -= A[i-K];
+       
+        if(horha(M,M1))
+        {
+            ans = max(ans,s);
+        }        
+    }
+
+    cout<< ans <<'\n';
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
-    // wi(t)
+    wi(t)
     {
       solve();
     }

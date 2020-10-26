@@ -54,31 +54,63 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
+void printWellOrdered(ll int number, 
+					ll int x, ll int k,ll int nn,vl &ar) 
+{ 
+	if (k == 0) 
+	{ 
+		ar.push_back(number); 
+		return; 
+	} 
+
+	// Try all possible greater digits 
+	for (ll int i = x; i < 10; i++) 
+		printWellOrdered(number * 10 + i, i, k - 1,nn,ar); 
+} 
+
+// Generates all well ordered 
+// numbers of length k. 
+ll int bounder(vl ar,ll int n)
+{
+    ll int i=0,j=ar.size();
+    ll int ans=0;
+    while(i<=j)
+    {
+        ll int mid=(i+j)/2;
+        if(ar[mid]==n)
+        {
+            return ar[mid];
+        }
+        else if(ar[mid]<n)
+        {
+            ans=mid;
+            i=mid+1;
+        }
+        else
+        {
+            j=mid-1;
+        }
+        
+        
+    }
+    return ar[ans];
+}
+void generateWellOrdered(ll int k,ll int nn) 
+{   
+    vl ar;
+    
+	printWellOrdered(0, 1, k,nn,ar);
+     for(auto i:ar) cout<<i<<" ";
+    cout<<bounder(ar,nn)<<"\n"; 
+} 
 void solve()
     { 
         ll int n;
         cin>>n;
-        vl ar(n),br(n);
-        int maxin=0;
-        ll int mx=0;
-        fo(i,n) {cin>>ar[i];}
-        for(int a=0;a<n;++a)
-	    {
-	    ll int ans = ar[a];
-	    ll int  curr = 0;
-	    for (int i = 0; i < a; ++i)
-	    {
-	        curr  = (curr + ar[i])/2;
-	    }
-	    ans +=curr;
-	    curr=0;
-	    for(int i=n-1;i>a;--i)
-	    {
-	        curr  = (curr + ar[i])/2;
-	    }
-	    mx = max(mx,(ans + curr ) );
-	    }
-       cout<< mx <<'\n';
+        string s=to_string(n);
+        ll int k=s.size();
+        generateWellOrdered(k,n);
+
 
     }
 
@@ -86,7 +118,7 @@ int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
-    // wi(t)
+    wi(t)
     {
       solve();
     }

@@ -54,31 +54,100 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
+int getNum(vector<int>& v) 
+{ 
+  
+    // Size of the vector 
+    int n = v.size(); 
+  
+    // Generate a random number 
+    srand(time(NULL)); 
+  
+    // Make sure the number is within 
+    // the index range 
+    int index = rand() % n; 
+  
+    // Get random number from the vector 
+    int num = v[index]; 
+  
+    // Remove the number from the vector 
+    swap(v[index], v[n - 1]); 
+    v.pop_back(); 
+  
+    // Return the removed number 
+    return num; 
+} 
+  
+// Function to generate n non-repeating random numbers 
+void generateRandom(int n) 
+{ 
+    vector<int> v(n); 
+  
+    // Fill the vector with the values 
+    // 1, 2, 3, ..., n 
+    for (int i = 0; i < n; i++) 
+        v[i] = i + 1; 
+  
+    // While vector has elements 
+    // get a random number from the vector and print it 
+    while (v.size()) { 
+        cout << getNum(v) << " "; 
+    } 
+} 
+void swap (int *a, int *b)  
+{  
+    int temp = *a;  
+    *a = *b;  
+    *b = temp;  
+}  
+  
+// A utility function to print an array  
+void printArray (int arr[], int n)  
+{  
+    for (int i = 0; i < n; i++)  
+        cout << arr[i] << " ";  
+    cout << "\n";  
+}  
+  
+// A function to generate a random  
+// permutation of arr[]  
+void randomize (int arr[], int n)  
+{  
+    // Use a different seed value so that  
+    // we don't get same result each time 
+    // we run this program  
+    srand (time(NULL));  
+  
+    // Start from the last element and swap  
+    // one by one. We don't need to run for  
+    // the first element that's why i > 0  
+    for (int i = n - 1; i > 0; i--)  
+    {  
+        // Pick a random index from 0 to i  
+        int j = rand() % (i + 1);  
+  
+        // Swap arr[i] with the element  
+        // at random index  
+        swap(&arr[i], &arr[j]);  
+    }  
+}  
 void solve()
     { 
-        ll int n;
-        cin>>n;
-        vl ar(n),br(n);
-        int maxin=0;
-        ll int mx=0;
-        fo(i,n) {cin>>ar[i];}
-        for(int a=0;a<n;++a)
-	    {
-	    ll int ans = ar[a];
-	    ll int  curr = 0;
-	    for (int i = 0; i < a; ++i)
-	    {
-	        curr  = (curr + ar[i])/2;
+	    ll N,M;cin>>N>>M;
+	    for(ll i=0;i<M;++i)
+    {
+	        ll u,v;cin>>u>>v;
+    }
+	    for(ll i=0;i<M;++i)
+   {
+	        ll u,v;cin>>u>>v;
 	    }
-	    ans +=curr;
-	    curr=0;
-	    for(int i=n-1;i>a;--i)
-	    {
-	        curr  = (curr + ar[i])/2;
-	    }
-	    mx = max(mx,(ans + curr ) );
-	    }
-       cout<< mx <<'\n';
+        ll n=N;
+        int arr[n];
+        for(int i=0;i<n;i++) arr[i]=i+1;
+	      randomize (arr, n);  
+          printArray(arr, n);   
+   //  generateRandom(N);
 
     }
 

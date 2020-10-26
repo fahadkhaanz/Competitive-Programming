@@ -58,27 +58,24 @@ void solve()
     { 
         ll int n;
         cin>>n;
-        vl ar(n),br(n);
-        int maxin=0;
-        ll int mx=0;
-        fo(i,n) {cin>>ar[i];}
-        for(int a=0;a<n;++a)
-	    {
-	    ll int ans = ar[a];
-	    ll int  curr = 0;
-	    for (int i = 0; i < a; ++i)
-	    {
-	        curr  = (curr + ar[i])/2;
-	    }
-	    ans +=curr;
-	    curr=0;
-	    for(int i=n-1;i>a;--i)
-	    {
-	        curr  = (curr + ar[i])/2;
-	    }
-	    mx = max(mx,(ans + curr ) );
-	    }
-       cout<< mx <<'\n';
+        vl ar(n);
+        fo(i,n) cin>>ar[i];
+        vl br;
+        ll int sum=0;
+        for(int i=0;i<n;i++)
+        {
+            if(ar[i]!=1)
+            sum+=ar[i];
+        }
+        if(sum==n-1)
+        {
+            cout<<"Yes\n";
+        }
+        else
+        {
+            cout<<"NO";
+        }
+        
 
     }
 
