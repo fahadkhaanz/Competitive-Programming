@@ -43,7 +43,7 @@ void dfs(int u, int par);
 const int mod = 1000000007;
 const int N = 3e5, M = N;
 //=======================
-
+#define INT_SIZE 32 
 vi g[N];
 int a[N];
 ll int gcd(ll int a, ll int b) 
@@ -54,39 +54,48 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
+
+ll int ORsum(ll int arr[], ll int n) 
+{ 
+    // create an array of size 32 
+    // and store the sum of bits  
+    // with value 0 at every index. 
+    ll int zerocnt[INT_SIZE] = { 0 }; 
+  
+    for (int i = 0; i < INT_SIZE; i++)      
+        for (int j = 0; j < n; j++)         
+            if (!(arr[j] & 1 << i)) 
+                zerocnt[i] += 1;             
+      
+    // for each index the OR sum contributed 
+    // by that bit of subset will be 2^(bit index) 
+    // now the OR of the bits is 0 only if 
+    // all the ith bit of the elements in subset  
+    // is 0. 
+    ll int ans = 0; 
+    for (int i = 0; i < INT_SIZE; i++)  
+    { 
+        ans += ((mpow(2, n) - 1) -  
+               (mpow(2, zerocnt[i]) - 1)) *  
+                mpow(2, i); 
+    } 
+  
+    return ans; 
+} 
 void solve()
     { 
-      int n;
-      cin>>n;
-      vi ar;
-      vi br;
-      for(int i=0;i<n;i++)
-      {
-          int t;
-          cin>>t;
-          if(t<10||t>100)
-          {
-              cout<<"INVALID INPUT";
-              return;
-          }
-          if(t>60&&br.size()<5)
-          br.push_back(t);
-          else 
-          ar.push_back(t);
-      }
-       int sum=0,sum1=0;
-      for(auto i:ar)
-       sum+=i;
-       for(auto i:br) sum2+=i;
-       cout<<sum1<<" "<<sum;
-       
+        ll int n;
+        cin>>n;
+         ll int ar[n];
+        fo(i,n) cin>>ar[i];
+        cout<<ORsum(ar,n)<<"\n";
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
-    // wi(ast)
+    wi(t)
     {
       solve();
     }

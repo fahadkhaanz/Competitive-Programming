@@ -46,6 +46,8 @@ const int N = 3e5, M = N;
 
 vi g[N];
 int a[N];
+int vis[N];
+int maxdist,maxnodes;
 ll int gcd(ll int a, ll int b) 
 { 
     if (b == 0) 
@@ -56,37 +58,23 @@ ll int gcd(ll int a, ll int b)
 int tc=1;
 void solve()
     { 
-      int n;
-      cin>>n;
-      vi ar;
-      vi br;
-      for(int i=0;i<n;i++)
-      {
-          int t;
-          cin>>t;
-          if(t<10||t>100)
-          {
-              cout<<"INVALID INPUT";
-              return;
-          }
-          if(t>60&&br.size()<5)
-          br.push_back(t);
-          else 
-          ar.push_back(t);
-      }
-       int sum=0,sum1=0;
-      for(auto i:ar)
-       sum+=i;
-       for(auto i:br) sum2+=i;
-       cout<<sum1<<" "<<sum;
-       
+        int n;
+        cin>>n;
+        for(int i=0;i<n;i++) vis[i]=0;
+        ipgraph(n,n-1);
+        maxdist=-1;
+        dfs(0,0);
+        maxdist=-1;
+        for(int i=0;i<n;i++) vis[i]=0;
+        dfs(maxnodes,0);
+        cout<<maxdist;
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
-    // wi(ast)
+    // wi(t)
     {
       solve();
     }
@@ -115,10 +103,12 @@ void ipgraph(int n, int m){
     }
 }
 
-void dfs(int u, int par){
+void dfs(int u, int d){
+    vis[u]=1;
+    if(d>maxdist) maxdist=d,maxnodes=u;
     for(int v:g[u]){
-        if (v == par) continue;
-        dfs(v, u);
+        if (vis[v]==0) 
+         dfs(v, d+1);
     }
 }
 

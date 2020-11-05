@@ -56,37 +56,56 @@ ll int gcd(ll int a, ll int b)
 int tc=1;
 void solve()
     { 
-      int n;
-      cin>>n;
-      vi ar;
-      vi br;
-      for(int i=0;i<n;i++)
-      {
-          int t;
-          cin>>t;
-          if(t<10||t>100)
-          {
-              cout<<"INVALID INPUT";
-              return;
-          }
-          if(t>60&&br.size()<5)
-          br.push_back(t);
-          else 
-          ar.push_back(t);
-      }
-       int sum=0,sum1=0;
-      for(auto i:ar)
-       sum+=i;
-       for(auto i:br) sum2+=i;
-       cout<<sum1<<" "<<sum;
-       
+        ll int a,b;
+        cin>>a>>b;
+        string s;
+        cin>>s;
+        ll int on=count(all(s),'1');
+        int in1=0,in2=s.size()-1;
+        for(int i=0;i<s.size();i++)
+        {
+            if(s[i]=='1')
+            {
+                in1=i;
+                break;
+            }
+        }
+        for(int i=s.size()-1;i>=0;i--)
+        {
+             if(s[i]=='1')
+            {
+                in2=i;
+                break;
+            }
+        }
+        int zero=0;
+        for(int i=in1;i<=in2;i++)
+        {
+            if(s[i]=='0') zero++;
+        }
+        ll int ans=0;
+        ll int c=0;
+        for(int i=0;i<s.size();i++)
+        {
+            if(s[i]=='1') c=a;
+            else
+            {
+                ans+=c;
+                c=0;
+
+            }
+            
+        }
+        if(c!=0) ans+=c;
+        cout<<min(ans,zero*b+a)<<"\n";
+
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
-    // wi(ast)
+    wi(t)
     {
       solve();
     }

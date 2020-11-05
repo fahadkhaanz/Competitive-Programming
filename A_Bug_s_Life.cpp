@@ -54,39 +54,78 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
+vi adj[N+1];
+vi col(N+1),vis(N+1);
+bool dfs1(int u,int c)
+{
+    vis[u]=1;
+    col[u]=c;
+    for(int i:adj[u])
+    {
+        if(vis[i]==0)
+        {
+            if(dfs1(i,c^1)==false)
+            return false;
+        }
+        else 
+        {
+            if(col[i]==col[u])
+            return false;
+        }
+    }
+    return true;
+}
 void solve()
-    { 
-      int n;
-      cin>>n;
-      vi ar;
-      vi br;
-      for(int i=0;i<n;i++)
-      {
-          int t;
-          cin>>t;
-          if(t<10||t>100)
-          {
-              cout<<"INVALID INPUT";
-              return;
-          }
-          if(t>60&&br.size()<5)
-          br.push_back(t);
-          else 
-          ar.push_back(t);
-      }
-       int sum=0,sum1=0;
-      for(auto i:ar)
-       sum+=i;
-       for(auto i:br) sum2+=i;
-       cout<<sum1<<" "<<sum;
-       
+    {   
+         cout<<"Scenario #"<<tc++<<":\n";
+        int n,m;
+        cin>>n>>m;
+        
+        // adj[N+1].clear();
+        // adj[N+1].resize(n+1);
+       // col.clear();
+        // vis.clear();
+        // col.resize(n+1);
+        // vis.resize(n+1);
+        for(int i=1;i<=n;i++) adj[i].clear(),vis[i]=0;
+        for(int i=0;i<m;i++)
+        {
+            int u,v;
+            cin>>u>>v;
+            adj[u].pb(v);
+            adj[v].pb(u);
+        }
+        bool f=true;
+        for(int i=1;i<=n;i++)
+        {   
+            if(vis[i]==0)
+            {
+                    bool res=dfs1(i,0);
+                    if(res==false)
+                    f=false;
+            }
+           
+            
+           
+        } 
+      
+        if(f==false)
+        {
+            cout<<"Suspicious bugs found!\n";
+        }
+        else
+        {
+           cout<<"No suspicious bugs found!\n";
+        }
+        
+
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
-    // wi(ast)
+    wi(t)
     {
       solve();
     }

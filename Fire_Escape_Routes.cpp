@@ -54,39 +54,55 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
+ll int sz=0;
+vi vis(N+1);
+ vector<int> adj[N+1];
+void dfs1(int u)
+{
+    vis[u]=1;
+    sz++;
+    for(auto i:adj[u])
+    {
+        if(vis[i]==0)
+        dfs1(i);
+    }
+}
 void solve()
     { 
-      int n;
-      cin>>n;
-      vi ar;
-      vi br;
-      for(int i=0;i<n;i++)
-      {
-          int t;
-          cin>>t;
-          if(t<10||t>100)
-          {
-              cout<<"INVALID INPUT";
-              return;
-          }
-          if(t>60&&br.size()<5)
-          br.push_back(t);
-          else 
-          ar.push_back(t);
-      }
-       int sum=0,sum1=0;
-      for(auto i:ar)
-       sum+=i;
-       for(auto i:br) sum2+=i;
-       cout<<sum1<<" "<<sum;
+        int n,m;
+        cin>>n>>m;
        
+       
+
+for(int i=1;i<=n;i++) vis[i]=0,adj[i].clear();
+while (m--)
+        {
+           int u,v;
+           cin>>u>>v;
+           adj[u].pb(v);
+           adj[v].pb(u);
+        }
+        ll int c=0;
+        ll int ans=1;
+        for(int i=1;i<=n;i++)
+        {    
+            if(vis[i]==0)
+            {    
+                 c++;sz=0;
+                 dfs1(i);
+                 ans=(ans*sz)%mod;
+                
+            }
+        }
+        cout<<c<<" "<<ans<<"\n";
+
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
-    // wi(ast)
+    wi(t)
     {
       solve();
     }

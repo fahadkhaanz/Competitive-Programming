@@ -54,39 +54,56 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
+vl fact;
+void printDivisors(ll int n) 
+{ 
+    // Note that this loop runs till square root 
+    for (ll int i=1; i<=sqrt(n); i++) 
+    { 
+        if (n%i == 0) 
+        { 
+            // If divisors are equal, print only one 
+            if (n/i == i) 
+               fact.pb(i); 
+  
+            else // Otherwise print both 
+               {
+                     fact.pb(i);
+                     fact.pb(n/i);
+               }
+        } 
+    } 
+} 
 void solve()
     { 
-      int n;
-      cin>>n;
-      vi ar;
-      vi br;
-      for(int i=0;i<n;i++)
-      {
-          int t;
-          cin>>t;
-          if(t<10||t>100)
-          {
-              cout<<"INVALID INPUT";
-              return;
-          }
-          if(t>60&&br.size()<5)
-          br.push_back(t);
-          else 
-          ar.push_back(t);
-      }
-       int sum=0,sum1=0;
-      for(auto i:ar)
-       sum+=i;
-       for(auto i:br) sum2+=i;
-       cout<<sum1<<" "<<sum;
+        ll int p,q;
+        cin>>p>>q;
+        if(p%q!=0||q>p)
+        {
+            cout<<p<<"\n";
+            return;
+        }
+
+        fact.clear();
+        printDivisors(p);
+        sort(all(fact),greater<int>());
+        for(int i=0;i<fact.size();i++)
+        {
+            if(fact[i]%q!=0)
+            {
+                cout<<fact[i]<<"\n";
+                return;
+            }
+        }
        
+        
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
-    // wi(ast)
+    wi(t)
     {
       solve();
     }
