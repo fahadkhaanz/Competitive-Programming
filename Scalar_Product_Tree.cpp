@@ -1,0 +1,190 @@
+//git pull --rebase origin master
+#include<bits/stdc++.h>
+using namespace std;
+#define gc getchar_unlocked
+#define fo(i,n) for(int i=0;i<n;i++)
+#define Fo(i,k,n) for(i=k;k<n?i<n:i>n;k<n?i+=1:i-=1)
+#define ll long long
+#define si(x)	scanf("%d",&x)
+#define sl(x)	scanf("%lld",&x)
+#define ss(s)	scanf("%s",s)
+#define pi(x)	printf("%d\n",x)
+#define pl(x)	printf("%lld\n",x)
+#define ps(s)	printf("%s\n",s)
+#define deb(x) cout << #x << "=" << x << endl
+#define deb2(x, y) cout << #x << "=" << x << "," << #y << "=" << y << endl
+#define pb push_back
+#define mp make_pair
+#define F first
+#define S second
+#define all(x) x.begin(), x.end()
+#define clr(x) memset(x, 0, sizeof(x))
+#define sortall(x) sort(all(x))
+#define tr(it, a) for(auto it = a.begin(); it != a.end(); it++)
+#define PI 3.1415926535897932384626
+#define wi(t) int t;cin>>t;while(t--)
+typedef pair<int, int>	pii;
+typedef pair<ll, ll>	pl;
+typedef vector<int>		vi;
+typedef vector<ll>		vl;
+typedef vector<pii>		vpii;
+typedef vector<pl>		vpl;
+typedef vector<vi>		vvi;
+typedef vector<vl>		vvl;
+mt19937_64 rang(chrono::high_resolution_clock::now().time_since_epoch().count());
+int rng(int lim) {
+    uniform_int_distribution<int> uid(0,lim-1);
+    return uid(rang);
+}
+int mpow(int base, int exp); 
+void ipgraph(int n, int m);
+void dfs(int u, int par);
+
+const ll int mod = 4294967296;
+const int N = 3e5, M = N;
+//=======================
+
+vi adj[N];
+vi vis(N);
+vector<int> path[N];
+
+ll int gcd(ll int a, ll int b) 
+{ 
+    if (b == 0) 
+        return a; 
+    return gcd(b, a % b);  
+      
+} 
+int tc=1;
+void bfs(int node)
+{
+ 
+   
+    queue<pair<int, int> > qu;
+
+    qu.push({ node, -1 });
+    vis[node] = true;
+ 
+    while (!qu.empty()) {
+        pair<int, int> p = qu.front();
+ 
+        
+        qu.pop();
+        vis[p.first] = true;
+ 
+       
+ 
+        for (int child : adj[p.first]) {
+            if (!vis[child]) {
+                qu.push({ child, p.first });
+ 
+                
+                path[child] = path[p.first];
+                path[child].push_back(p.first);
+            }
+        }
+    }
+}
+void displayPath(int node)
+{
+    vector<int> ans = path[node];
+    for (int k : ans) {
+        cout << k << " ";
+    }
+    cout << node << '\n';
+}
+unsigned int getModulo(unsigned int n,  
+                       unsigned int d) 
+{ 
+return ( n & (d - 1) ); 
+} 
+struct hash_pair { 
+    template <class T1, class T2> 
+    size_t operator()(const pair<T1, T2>& p) const
+    { 
+        auto hash1 = hash<T1>{}(p.first); 
+        auto hash2 = hash<T2>{}(p.second); 
+        return hash1 ^ hash2; 
+    } 
+}; 
+void solve()
+    { 
+        ll int n,q;
+        cin>>n>>q;
+        vl ar(n);
+        fo(i,n) cin>>ar[i],vis[i]=0;
+        ipgraph(n,n-1);
+        bfs(0);
+        map<pair<int,int>,ll int>mep;
+        while(q--)
+        {
+            int u,v;
+            cin>>u>>v;
+            u--,v--;
+            if(mep[{u,v}]!=0)
+            {
+                cout<<mep[{u,v}]<<"\n";
+                continue;
+            }
+            vector<int> a=path[u];
+            vector<int> b=path[v];
+            a.push_back(u);
+            b.push_back(v);
+            ll int ans=0;
+            int j=0;
+           
+            for(int i=0;i<a.size();i++)
+            {   
+               
+                 ans=(ans+(ar[a[i]]%mod*ar[b[i]]%mod)%mod)%mod;
+            } 
+            mep[{u,v}]=ans;
+            cout<<ans<<"\n";
+        }
+
+    }
+
+int main() {
+    ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
+    srand(chrono::high_resolution_clock::now().time_since_epoch().count());
+
+    // wi(t)
+    {
+      solve();
+    }
+
+    return 0;
+}
+
+int mpow(int base, int exp) {
+  base %= mod;
+  int result = 1;
+  while (exp > 0) {
+    if (exp & 1) result = ((ll)result * base) % mod;
+    base = ((ll)base * base) % mod;
+    exp >>= 1;
+  }
+  return result;
+}
+
+void ipgraph(int n, int m){
+    int i, u, v;
+    while(m--){
+        cin>>u>>v;
+    u--, v--;
+        adj[u].pb(v);
+        adj[v].pb(u);
+    }
+}
+
+void dfs(int u, int par){
+    for(int v:adj[u]){
+        if (v == par) continue;
+        dfs(v, u);
+    }
+}
+
+
+
+
+

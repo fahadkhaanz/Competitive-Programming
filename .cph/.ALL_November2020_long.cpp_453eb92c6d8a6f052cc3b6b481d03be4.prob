@@ -1,0 +1,1 @@
+{"name":"Local: ALL_November2020_long","url":"f:\\My cp\\ALL_November2020_long.cpp","tests":[{"id":1605457621341,"input":"5 2\n5 4 3 2 1\n1 2\n1 3\n2 4\n2 5\n2 3\n4 5","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"f:\\My cp\\ALL_November2020_long.cpp","group":"local","local":true}
