@@ -1,0 +1,1 @@
+{"name":"Local: Adhoc Practice","url":"f:\\My cp\\Adhoc Practice.cpp","tests":[{"id":1605790652123,"input":"4\n5\n45 42 46 48 47\n3\n7 7 8\n8\n12 156 157 158 159 160 161 162\n4\n8 7 10 6","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"f:\\My cp\\Adhoc Practice.cpp","group":"local","local":true}
