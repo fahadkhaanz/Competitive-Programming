@@ -56,34 +56,15 @@ ll int gcd(ll int a, ll int b)
 int tc=1;
 void solve()
     { 
-        ll int n,k;
-        cin>>n>>k;
-        vl ar(n+1);
-        for(int i=1;i<=n;i++) ar[i]=-1*i;
-        int i=1;
-        while(i<=n)
-            {   
-                if(k<=0)
-                break;
-                ar[i]*=-1;
-                i+=2;
-                k--;
-            }
-         if(n%2==0) i=n;
-         else
-         i=n-1;
-        while(i>1)
-        {       
-                if(k<=0)
-                break;
-                ar[i]*=-1;
-                i-=2;
-                k--;
+        ll int n;
+        cin>>n;
+        int ans=0;
+        while(n!=1)
+        {
+            ans++;
+            n=n/2;
         }
-       
-        // deb(ans);
-        for(int i=1;i<=n;i++) cout<<ar[i]<<" ";
-        cout<<endl;
+        cout<<(1<<ans)<<"\n";
     }
 
 int main() {

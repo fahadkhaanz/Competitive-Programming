@@ -56,34 +56,23 @@ ll int gcd(ll int a, ll int b)
 int tc=1;
 void solve()
     { 
-        ll int n,k;
-        cin>>n>>k;
-        vl ar(n+1);
-        for(int i=1;i<=n;i++) ar[i]=-1*i;
-        int i=1;
-        while(i<=n)
-            {   
-                if(k<=0)
-                break;
-                ar[i]*=-1;
-                i+=2;
-                k--;
-            }
-         if(n%2==0) i=n;
-         else
-         i=n-1;
-        while(i>1)
-        {       
-                if(k<=0)
-                break;
-                ar[i]*=-1;
-                i-=2;
-                k--;
+        ll int n,sum=0;
+        cin>>n;
+        ll int mn=LLONG_MAX,mx=0;
+        fo(i,n)
+        {
+            ll int l,r,z;
+            cin>>l>>r>>z;
+            mn=min(mn,z);
+            mx=max(mx,z);
+            sum+=z;
         }
-       
-        // deb(ans);
-        for(int i=1;i<=n;i++) cout<<ar[i]<<" ";
-        cout<<endl;
+        ll int ans1,ans2;
+        if(sum%n==0) ans1=sum/n;
+        else ans1=sum/n+1;
+        if((mn+mx)%2==0) ans2=(mn+mx)/2;
+        else ans2=(mn+mx)/2+1;
+        cout<<min(ans1,ans2)<<"\n";
     }
 
 int main() {

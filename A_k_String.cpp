@@ -54,129 +54,39 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
-char *find(string a,string b)
-{   
-    string a=input1;
-    string b=input2;
-    vector<string> s;
-    string tmp;
-    transform(a.begin(), a.end(), a.begin(), ::toupper); 
-
-    for(int i=0;i<b.size();i++)
-    {
-        if(b[i]!=':')
-        {
-            tmp+=b[i];
-        }
-        else
-        {   
-            transform(tmp.begin(), tmp.end(), tmp.begin(), ::toupper); 
-            s.push_back(tmp);
-            tmp="";
-        }
-        
-    }
-    transform(tmp.begin(), tmp.end(), tmp.begin(), ::toupper); 
-    s.push_back(tmp);
-    string op;
-    for(auto i:s)
-    {
-        if(a.size()==i.size())
-        {   
-            string ok="";
-            bool f=0;
-            for(int k=0;k<a.size();k++)
-            {
-               
-              
-                    if(a[k]==i[k])
-                    {
-                        ok+=a[k];
-                    }
-                    else  if(a[k]=='_'||a[k]=='?')
-                    {
-                        ok+=i[k];
-                    }
-                    else
-                    {   
-                        f=1;
-                        break;
-                    }
-                    
-
-              }
-              if(f==0)
-              op=op+ok+":"; 
-        }
-        else if(a.size()-1==i.size())
-        {
-            string no;
-            for(auto x:a) 
-            {
-                if(x!='?') no+=x;
-            }
-             string ok="";
-            bool f=0;
-            for(int k=0;k<no.size();k++)
-            {
-               
-              
-                    if(no[k]==i[k])
-                    {
-                        ok+=no[k];
-                    }
-                    else  if(no[k]=='_'||no[k]=='?')
-                    {
-                        ok+=i[k];
-                    }
-                    else
-                    {   
-                        f=1;
-                        break;
-                    }
-                    
-
-              }
-              if(f==0)
-              op=op+ok+":"; 
-
-        }
-
-    }
-    if(op.size()==0)
-    {
-        op="ERROR-009";
-    }
-    else
-    {
-        op.erase(op.end()-1);
-    }
-    
-    int nn = op.length();
-    char char_array[nn + 1];
-    strcpy(char_array, op.c_str());
-    return char_array;
-    
-    
-    
-    
-    }
-
-
-
 void solve()
     { 
-        string a,b;
-        cin>>a>>b;
-        cout<<find(a,b)<<"\n";
-
+        int n;
+        cin>>n;
+        string s;
+        cin>>s;
+        map<char,ll> mep;
+        for(auto i:s) mep[i]++;
+        for(auto i:mep)
+        {
+            if(i.S%n!=0) {cout<<"-1";return;}
+        }
+        string a;
+        while(a.size()!=s.size())
+        {
+                    for(auto i:mep)
+                    {
+                        int k=i.S/n;
+                        // i.S=i.S/n;
+                        while(k--)
+                        {
+                            a+=i.F;
+                        }
+                    }
+        }
+        cout<<a;
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
-    wi(t)
+    // wi(t)
     {
       solve();
     }

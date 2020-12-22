@@ -54,36 +54,61 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
+unordered_map<ll,ll> mep;
+void calculate(vl ar)
+{
+    ll int sum=0;
+    for(auto i:ar)
+    {
+        sum+=i;
+    }
+    mep[sum]++;
+    ll int mx=*max_element(all(ar));
+
+    ll int mn=*min_element(all(ar));
+
+    if(mx==mn) return;
+    
+    ll int mid=(mx+mn)/2;
+
+    vl left,right;
+    for(auto i:ar)
+    {
+       
+        if(i<=mid) left.push_back(i);
+        else right.push_back(i);
+    }
+  
+
+    calculate(left);
+    calculate(right);
+
+
+
+}
 void solve()
     { 
-        ll int n,k;
-        cin>>n>>k;
-        vl ar(n+1);
-        for(int i=1;i<=n;i++) ar[i]=-1*i;
-        int i=1;
-        while(i<=n)
-            {   
-                if(k<=0)
-                break;
-                ar[i]*=-1;
-                i+=2;
-                k--;
+        ll int n,q;
+        cin>>n>>q;
+        vl ar(n);
+        fo(i,n) cin>>ar[i];
+        mep.clear();
+        calculate(ar);
+        while(q--)
+        {
+            ll int a;
+            cin>>a;
+            if(mep[a]>0)
+            {
+                cout<<"Yes\n";
             }
-         if(n%2==0) i=n;
-         else
-         i=n-1;
-        while(i>1)
-        {       
-                if(k<=0)
-                break;
-                ar[i]*=-1;
-                i-=2;
-                k--;
+            else
+            {
+                cout<<"No\n";
+            }
+            
         }
-       
-        // deb(ans);
-        for(int i=1;i<=n;i++) cout<<ar[i]<<" ";
-        cout<<endl;
+
     }
 
 int main() {

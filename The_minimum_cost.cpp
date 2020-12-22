@@ -54,122 +54,42 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
-char *find(string a,string b)
-{   
-    string a=input1;
-    string b=input2;
-    vector<string> s;
-    string tmp;
-    transform(a.begin(), a.end(), a.begin(), ::toupper); 
-
-    for(int i=0;i<b.size();i++)
-    {
-        if(b[i]!=':')
-        {
-            tmp+=b[i];
-        }
-        else
-        {   
-            transform(tmp.begin(), tmp.end(), tmp.begin(), ::toupper); 
-            s.push_back(tmp);
-            tmp="";
-        }
-        
-    }
-    transform(tmp.begin(), tmp.end(), tmp.begin(), ::toupper); 
-    s.push_back(tmp);
-    string op;
-    for(auto i:s)
-    {
-        if(a.size()==i.size())
-        {   
-            string ok="";
-            bool f=0;
-            for(int k=0;k<a.size();k++)
-            {
-               
-              
-                    if(a[k]==i[k])
-                    {
-                        ok+=a[k];
-                    }
-                    else  if(a[k]=='_'||a[k]=='?')
-                    {
-                        ok+=i[k];
-                    }
-                    else
-                    {   
-                        f=1;
-                        break;
-                    }
-                    
-
-              }
-              if(f==0)
-              op=op+ok+":"; 
-        }
-        else if(a.size()-1==i.size())
-        {
-            string no;
-            for(auto x:a) 
-            {
-                if(x!='?') no+=x;
-            }
-             string ok="";
-            bool f=0;
-            for(int k=0;k<no.size();k++)
-            {
-               
-              
-                    if(no[k]==i[k])
-                    {
-                        ok+=no[k];
-                    }
-                    else  if(no[k]=='_'||no[k]=='?')
-                    {
-                        ok+=i[k];
-                    }
-                    else
-                    {   
-                        f=1;
-                        break;
-                    }
-                    
-
-              }
-              if(f==0)
-              op=op+ok+":"; 
-
-        }
-
-    }
-    if(op.size()==0)
-    {
-        op="ERROR-009";
-    }
-    else
-    {
-        op.erase(op.end()-1);
-    }
-    
-    int nn = op.length();
-    char char_array[nn + 1];
-    strcpy(char_array, op.c_str());
-    return char_array;
-    
-    
-    
-    
-    }
-
-
-
 void solve()
     { 
-        string a,b;
-        cin>>a>>b;
-        cout<<find(a,b)<<"\n";
+        ll int n,z,o;
+        cin>>n>>z>>o;
+        vi ar(n),br(n),cr(n);
+        int f=0;
+        fo(i,n)
+        {
+            cin>>ar[i];
+            br[i]=f;
+            cr[i]=f^1;
+            f=f^1;
 
+        }
+        ll int ans1=0,ans2=0;
+        for(int i=0;i<n;i++)
+        {
+            if(ar[i]!=br[i])
+            {
+                if(ar[i]==0)
+                ans1+=z;
+                else 
+                ans1+=o;
+            }
+        }
+        for(int i=0;i<n;i++)
+        {
+            if(ar[i]!=cr[i])
+            {
+                if(ar[i]==0)
+                ans2+=z;
+                else 
+                ans2+=o;
+            }
+        }
+        cout<<min(ans1,ans2)<<"\n";
     }
 
 int main() {

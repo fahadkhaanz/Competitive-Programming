@@ -56,34 +56,40 @@ ll int gcd(ll int a, ll int b)
 int tc=1;
 void solve()
     { 
-        ll int n,k;
-        cin>>n>>k;
-        vl ar(n+1);
-        for(int i=1;i<=n;i++) ar[i]=-1*i;
-        int i=1;
-        while(i<=n)
-            {   
-                if(k<=0)
-                break;
-                ar[i]*=-1;
-                i+=2;
-                k--;
-            }
-         if(n%2==0) i=n;
-         else
-         i=n-1;
-        while(i>1)
-        {       
-                if(k<=0)
-                break;
-                ar[i]*=-1;
-                i-=2;
-                k--;
+        int n;
+        cin>>n;
+        string s;
+        cin>>s;
+        string k="2020";
+        int j=0;
+        if(s.size()<4)
+        {
+            cout<<"NO\n";
+            return;
         }
-       
-        // deb(ans);
-        for(int i=1;i<=n;i++) cout<<ar[i]<<" ";
-        cout<<endl;
+
+        if(s==k||s.substr(0,4)==k||s.substr(n-4,4)==k)
+        {
+            cout<<"YES\n";
+            return;
+        }
+        if(s[0]=='2' and s[n-1]=='0' and s[n-2]=='2' and s[1]=='0')
+        {
+            cout<<"YES\n";
+            return;
+        }
+         if(s[0]=='2' and s[n-1]=='0' and s[2]=='2' and s[1]=='0')
+        {
+            cout<<"YES\n";
+            return;
+        } 
+        if(s[0]=='2' and s[n-1]=='0' and s[n-2]=='2' and s[n-3]=='0')
+        {
+            cout<<"YES\n";
+            return;
+        }
+        cout<<"NO\n";
+
     }
 
 int main() {

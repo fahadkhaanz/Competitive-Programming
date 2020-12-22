@@ -56,34 +56,34 @@ ll int gcd(ll int a, ll int b)
 int tc=1;
 void solve()
     { 
-        ll int n,k;
-        cin>>n>>k;
-        vl ar(n+1);
-        for(int i=1;i<=n;i++) ar[i]=-1*i;
-        int i=1;
-        while(i<=n)
-            {   
-                if(k<=0)
-                break;
-                ar[i]*=-1;
-                i+=2;
-                k--;
-            }
-         if(n%2==0) i=n;
-         else
-         i=n-1;
-        while(i>1)
-        {       
-                if(k<=0)
-                break;
-                ar[i]*=-1;
-                i-=2;
-                k--;
-        }
+        ll int n;
+        cin>>n;
+        ll int sum=0;
+        vl ar(n);
+        map<ll,ll> mep;
+        fo(i,n) cin>>ar[i],sum+=ar[i],mep[ar[i]]++;
+        // deb(sum);
+        ll int mx=0,mfr=0;
        
-        // deb(ans);
-        for(int i=1;i<=n;i++) cout<<ar[i]<<" ";
+        ll int ans1=0,ans2=0,ans3=0;
+        fo(i,n)
+        {
+            ans1+=abs(ar[i]-sum/(2*n));
+            ans2+=abs(ar[i]-sum/(2*n)-1);
+            ans3+=abs(ar[i]-sum/(2*n)+1);
+         
+        }
+        // if(ans1<ans2 and ans1<ans3)
+        fo(i,n) cout<<sum/(2*n)+1<<" ";
+        // else if(ans2<ans1 and ans2<ans3)
+        // fo(i,n) cout<<sum/(2*n)-1<<" ";
+        // else      
+        // fo(i,n) cout<<sum/(2*n)+1<<" ";
+
+
+        
         cout<<endl;
+
     }
 
 int main() {

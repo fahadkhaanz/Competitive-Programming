@@ -54,36 +54,34 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
+bool isvalid(string s)
+{   
+    if(s.size()<3) return false;
+    for(int i=0;i<=s.size()-3;i++)
+    {
+        if(s[i]=='a' and s[i+1]=='b' and s[i+2]=='c')
+        return true;
+    }
+    return false;
+}
 void solve()
     { 
-        ll int n,k;
-        cin>>n>>k;
-        vl ar(n+1);
-        for(int i=1;i<=n;i++) ar[i]=-1*i;
-        int i=1;
-        while(i<=n)
-            {   
-                if(k<=0)
-                break;
-                ar[i]*=-1;
-                i+=2;
-                k--;
-            }
-         if(n%2==0) i=n;
-         else
-         i=n-1;
-        while(i>1)
-        {       
-                if(k<=0)
-                break;
-                ar[i]*=-1;
-                i-=2;
-                k--;
+        string s;
+        cin>>s;
+        while(isvalid(s))
+        {
+             string tmp;
+             int i;
+             for( i=0;i<=s.size()-3;i++)
+             {
+               if(s[i]=='a' and s[i+1]=='b' and s[i+2]=='c')
+               break;
+             }
+             for(int k=0;k<i;k++) tmp+=s[k];
+             for(int k=i+3;k<s.size();k++) tmp+=s[k];
+             s=tmp;
         }
-       
-        // deb(ans);
-        for(int i=1;i<=n;i++) cout<<ar[i]<<" ";
-        cout<<endl;
+        cout<<s<<"\n";
     }
 
 int main() {

@@ -54,36 +54,33 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
+int min(int a,int b)
+{
+    if(a<b) return a;
+    else return b;
+}
 void solve()
     { 
-        ll int n,k;
-        cin>>n>>k;
-        vl ar(n+1);
-        for(int i=1;i<=n;i++) ar[i]=-1*i;
-        int i=1;
-        while(i<=n)
-            {   
-                if(k<=0)
-                break;
-                ar[i]*=-1;
-                i+=2;
-                k--;
-            }
-         if(n%2==0) i=n;
-         else
-         i=n-1;
-        while(i>1)
-        {       
-                if(k<=0)
-                break;
-                ar[i]*=-1;
-                i-=2;
-                k--;
-        }
+        int input2;
+        cin>>input2;
+        int input1[input2];
+        for(int i=0;i<input2;i++) cin>>input1[i];
        
-        // deb(ans);
-        for(int i=1;i<=n;i++) cout<<ar[i]<<" ";
-        cout<<endl;
+        int ar[100];
+        
+        int k=0;
+        for(int i=0;i<input1;i++)
+        {    int j; 
+            for (j=0; j<i; j++) 
+           if (input1[i] == input2[j]) 
+               break; 
+  
+        
+        if (i == j) 
+          result.output1[k++]=input1[i];
+        }
+        
+        return result;
     }
 
 int main() {

@@ -54,43 +54,29 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
+ll int sumPairs(ll int arr[],ll int n) 
+{ 
+    sort(arr,arr+n);
+    ll int sum = 0; 
+    for (ll int i=n-1; i>=0; i--) 
+        {sum += (i*arr[i] - (n-1-i)*arr[i]); 
+        }
+    return sum; 
+} 
 void solve()
     { 
-        ll int n,k;
-        cin>>n>>k;
-        vl ar(n+1);
-        for(int i=1;i<=n;i++) ar[i]=-1*i;
-        int i=1;
-        while(i<=n)
-            {   
-                if(k<=0)
-                break;
-                ar[i]*=-1;
-                i+=2;
-                k--;
-            }
-         if(n%2==0) i=n;
-         else
-         i=n-1;
-        while(i>1)
-        {       
-                if(k<=0)
-                break;
-                ar[i]*=-1;
-                i-=2;
-                k--;
-        }
-       
-        // deb(ans);
-        for(int i=1;i<=n;i++) cout<<ar[i]<<" ";
-        cout<<endl;
+        ll int n;
+        cin>>n;
+        ll int arr[n];
+        fo(i,n) cin>>arr[i];
+        cout<<sumPairs(arr,n);
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
-    wi(t)
+    // wi(t)
     {
       solve();
     }

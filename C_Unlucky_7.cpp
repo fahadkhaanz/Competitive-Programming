@@ -54,43 +54,67 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
+ll decimaltoOctal(ll deciNum)
+{
+ 
+    // initializations
+    ll octalNum = 0, countval = 1;
+    ll dNo = deciNum;
+ 
+    while (deciNum != 0) {
+ 
+        // decimals remainder is calculated
+        ll remainder = deciNum % 8;
+ 
+        // storing the octalvalue
+        octalNum += remainder * countval;
+ 
+        // storing exponential value
+        countval = countval * 10;
+        deciNum /= 8;
+    }
+    return octalNum;// << endl;
+}
 void solve()
     { 
-        ll int n,k;
-        cin>>n>>k;
-        vl ar(n+1);
-        for(int i=1;i<=n;i++) ar[i]=-1*i;
-        int i=1;
-        while(i<=n)
-            {   
-                if(k<=0)
-                break;
-                ar[i]*=-1;
-                i+=2;
-                k--;
+        ll int n;
+        cin>>n;
+        set<ll> st;
+        for(ll i=7;i<=n;i++)
+        {   
+            ll int ok=i;
+            bool ff=1;
+            while(ok>0)
+            {
+             if(ok%10==7)
+             {
+                 st.insert(i);
+                 ff=0;
+                 break;
+             }
+             ok=ok/10;
             }
-         if(n%2==0) i=n;
-         else
-         i=n-1;
-        while(i>1)
-        {       
-                if(k<=0)
-                break;
-                ar[i]*=-1;
-                i-=2;
-                k--;
+            if(ff==0) continue;
+            ll int k=decimaltoOctal(i);
+            bool f=1;
+            while(k>0)
+            {
+                if(k%10==7) {
+                    f=0;break;
+                }
+                k=k/10;
+            }
+            if(f==0)
+            st.insert(i);
         }
-       
-        // deb(ans);
-        for(int i=1;i<=n;i++) cout<<ar[i]<<" ";
-        cout<<endl;
+        cout<<n-st.size();
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
-    wi(t)
+    // wi(t)
     {
       solve();
     }

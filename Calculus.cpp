@@ -40,7 +40,7 @@ int mpow(int base, int exp);
 void ipgraph(int n, int m);
 void dfs(int u, int par);
 
-const int mod = 1000000007;
+const int mod = 998244353;
 const int N = 3e5, M = N;
 //=======================
 
@@ -54,43 +54,54 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
+long long calculate(long long p, 
+                    long long q) 
+{ 
+    long long mod = 998244353, expo; 
+    expo = mod - 2; 
+ 
+    // Loop to find the value 
+    // until the expo is not zero 
+    while (expo) { 
+ 
+        // Multiply p with q 
+        // if expo is odd 
+        if (expo & 1) { 
+            p = (p * q) % mod; 
+        } 
+        q = (q * q) % mod; 
+ 
+        // Reduce the value of 
+        // expo by 2 
+        expo >>= 1; 
+    } 
+    return p; 
+} 
 void solve()
     { 
-        ll int n,k;
-        cin>>n>>k;
-        vl ar(n+1);
-        for(int i=1;i<=n;i++) ar[i]=-1*i;
-        int i=1;
-        while(i<=n)
-            {   
-                if(k<=0)
-                break;
-                ar[i]*=-1;
-                i+=2;
-                k--;
-            }
-         if(n%2==0) i=n;
-         else
-         i=n-1;
-        while(i>1)
-        {       
-                if(k<=0)
-                break;
-                ar[i]*=-1;
-                i-=2;
-                k--;
-        }
-       
-        // deb(ans);
-        for(int i=1;i<=n;i++) cout<<ar[i]<<" ";
-        cout<<endl;
+       int n;
+       cin>>n;
+       vl ar(n+1);
+       vl br(n+1);
+       ar[1]=2;
+       br[1]=1;
+       ll int k=3;
+       for(int i=2;i<=n;i++)
+       {
+           ar[i]=((ar[i-1]*k)%mod+(2*br[i-1])%mod)%mod;
+           br[i]=(br[i-1]*k)%mod;
+           k+=2;
+       }
+       cout<<calculate(ar[n],br[n]);
+
+
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
-    wi(t)
+    // wi(t)
     {
       solve();
     }

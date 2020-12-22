@@ -56,34 +56,30 @@ ll int gcd(ll int a, ll int b)
 int tc=1;
 void solve()
     { 
-        ll int n,k;
-        cin>>n>>k;
-        vl ar(n+1);
-        for(int i=1;i<=n;i++) ar[i]=-1*i;
-        int i=1;
-        while(i<=n)
-            {   
-                if(k<=0)
-                break;
-                ar[i]*=-1;
-                i+=2;
-                k--;
-            }
-         if(n%2==0) i=n;
-         else
-         i=n-1;
-        while(i>1)
-        {       
-                if(k<=0)
-                break;
-                ar[i]*=-1;
-                i-=2;
-                k--;
+        ll int n,m;
+        cin>>n>>m;
+        vi ar(n),br(n);
+        fo(i,n) cin>>ar[i],br[i]=ar[i];
+        sortall(br);
+        int k;
+        for(k=n-1;k>=0;k--)
+        {
+            if(br[k]!=ar[k])  break;
         }
-       
-        // deb(ans);
-        for(int i=1;i<=n;i++) cout<<ar[i]<<" ";
-        cout<<endl;
+        double ans=1;
+        for(int i=0;i<m;i++)
+        {
+            int in;
+            float pro;
+            cin>>in>>pro;
+            if(in>k)
+            {
+                ans*=(1-pro);
+            }
+        }
+        if(k<0)
+        ans=0;
+        cout<<setprecision(6)<<fixed<<(1-ans)<<"\n";
     }
 
 int main() {

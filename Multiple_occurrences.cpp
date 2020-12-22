@@ -53,37 +53,47 @@ ll int gcd(ll int a, ll int b)
     return gcd(b, a % b);  
       
 } 
+vector<pair<ll,ll>> diff(10000000);
+
 int tc=1;
 void solve()
     { 
-        ll int n,k;
-        cin>>n>>k;
-        vl ar(n+1);
-        for(int i=1;i<=n;i++) ar[i]=-1*i;
-        int i=1;
-        while(i<=n)
-            {   
-                if(k<=0)
-                break;
-                ar[i]*=-1;
-                i+=2;
-                k--;
+         unordered_map<ll int,ll int> mep;
+         unordered_map<ll int,pair<ll,ll>> mep1;
+        ll int n;
+        cin>>n;
+        vl ar(n);
+        ll int mx=0;
+        for(int i=0;i<n;i++)
+        {
+            ll int in;
+            cin>>in;
+            ar[i]=in;
+            if(mep[in]==0)
+            {
+                mep1[in].F=i;
+                mep1[in].S=i;
             }
-         if(n%2==0) i=n;
-         else
-         i=n-1;
-        while(i>1)
-        {       
-                if(k<=0)
-                break;
-                ar[i]*=-1;
-                i-=2;
-                k--;
+            else
+            {
+                mep1[in].S=i;
+            }
+            
+          
+            mep[in]++;
+            
         }
-       
-        // deb(ans);
-        for(int i=1;i<=n;i++) cout<<ar[i]<<" ";
-        cout<<endl;
+
+
+        ll int ans=0;
+        for(auto ii:mep1)
+        {   
+            ans+=(ii.S.S-ii.S.F);
+            
+        }
+        cout<<ans<<"\n";
+
+
     }
 
 int main() {

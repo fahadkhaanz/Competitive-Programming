@@ -56,34 +56,29 @@ ll int gcd(ll int a, ll int b)
 int tc=1;
 void solve()
     { 
-        ll int n,k;
-        cin>>n>>k;
-        vl ar(n+1);
-        for(int i=1;i<=n;i++) ar[i]=-1*i;
-        int i=1;
-        while(i<=n)
-            {   
-                if(k<=0)
-                break;
-                ar[i]*=-1;
-                i+=2;
-                k--;
-            }
-         if(n%2==0) i=n;
-         else
-         i=n-1;
-        while(i>1)
-        {       
-                if(k<=0)
-                break;
-                ar[i]*=-1;
-                i-=2;
-                k--;
+        int n;
+        string a,b;
+        cin>>n>>a>>b;
+         int aa=0,bb=0;
+         for(int i=0;i<n;i++)
+         {
+             if((a[i]-'0')>(b[i]-'0')) aa++;
+             else if((a[i]-'0')<(b[i]-'0'))bb++;
+         }
+        //  deb2(aa,bb);
+        if(aa>bb)
+        {
+            cout<<"RED\n";
         }
-       
-        // deb(ans);
-        for(int i=1;i<=n;i++) cout<<ar[i]<<" ";
-        cout<<endl;
+        else if(aa<bb)
+        {
+            cout<<"BLUE\n";
+        }
+        else
+        {
+            cout<<"EQUAL\n";
+        }
+        
     }
 
 int main() {
