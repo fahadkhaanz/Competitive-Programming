@@ -54,63 +54,51 @@ vi vis(N);
       
 } 
  int  tc=1;
- int  rolling(string a)
+ ll int  rolling(string a)
 {
-     int  n=a.size();
-     int  p=31;
-     int  ans=0;
-    for( int  i=0;i<n;i++)
-    {
-        ans=(ans+((a[i]-'a'+1)*mpow(p,i))%mod)%mod;
-       
-    
-        
+     ll int  n=a.size();
+     ll int  p=31;
+     ll int  ans=0;
+    //   ll int  p = 31;
+	 ll int  p_power = 1;
+     ans=(ans+((a[0]-'a'+1)*p_power)%mod)%mod;
+    for(ll int  i=1;i<n;i++)
+    {   
+        p_power = (p_power * p) % mod;
+        ans=(ans+((a[i]-'a'+1)*p_power)%mod)%mod;
     }
-    return ans;
+    return ans%mod;
 }
- int  power( int  a ,  int  n)
-{
-	 int  result = 1;
  
-	while(n)
-	{
-		if(n & 1) result = (result * a) % mod;
- 
-		n >>= 1;
-		a = (a * a) % mod;
-	}
- 
-	return result;
-}
 
- vi dp(1000001);
- vi in(1000001);
+ vl dp(1000001);
+ vl in(1000001);
 void boom(string b)
 {
-     int  p = 31;
-	 int  p_power = 1;
-	in[0] = 1;
-	dp[0] = (b[0] - 'a' + 1);
+     ll int  p = 31;
+	 ll int  p_power = 1;
+	// in[0] = 1;
+	 dp[0] = (b[0] - 'a' + 1);
+     in[0]=1;
  
- 
-	for( int  i=1;i<b.size();i++)
+	for(ll int  i=1;i<b.size();i++)
 	{
 		char ch = b[i];
  
 		p_power = (p_power * p) % mod;
-		in[i] = power(p_power , mod - 2);
- 
+		// in[i] = power(p_power , mod - 2);
+        in[i]=p_power;
 		dp[i] = (dp[i-1] + (ch - 'a' + 1)*p_power) % mod;
 	}
     
 }
- int  ok( int  l, int  r)
+ll int  ok(ll  int  l, ll int  r)
 {
-     int  res=dp[r];
+   ll int  res=dp[r];
     if(l>0)
     res=(res-dp[l-1]+mod)%mod;
     
-    return (res*in[l])%mod;
+    return res%mod;
 
 }
 void solve()
@@ -125,34 +113,45 @@ void solve()
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
      int  input;
-    while(cin>>input)
+     cin>>input;
+    while(input--)
     {
         string a,b;
-        cin>>a>>b;
+        cin>>b>>a;
         if(a.size()>b.size()) 
         {
-            cout<<"\n";
+             cout<<"Not Found\n";
             continue;
         }
-         int  rolla=rolling(a);
+        ll int  rolla=rolling(a);
         // deb(rolla);
         dp.clear();
         in.clear();
         boom(b);
-         int  c=0;
-         int  k=a.size()-1;
+         ll int  c=0;
+         ll int  k=a.size()-1;
         bool f=0;
-       
-        for( int  i=0;i<=b.size()-a.size();i++)
+        vector<ll> ans;
+        for( ll int  i=0;i<=b.size()-a.size();i++)
         {   
-            // deb(ok(i,i+k));
-            if(ok(i,i+k)==rolla) 
+            //  deb2(ok(i,i+k),(in[i]*rolla)%mod);
+            if(ok(i,i+k)==(in[i]*rolla)%mod) 
             {
-                cout<<i<<"\n";
+                ans.push_back(i+1);
                 f=1;
             }
         }
-      cout<<endl;
+        if(f==0)
+        {
+            cout<<"Not Found";
+        }
+        else
+        {
+            cout<<ans.size()<<"\n";
+            for(auto i:ans) cout<<i<<" ";
+        }
+        
+        cout<<"\n\n";
 
     }
 
