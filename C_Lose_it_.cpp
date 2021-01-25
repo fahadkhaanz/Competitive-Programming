@@ -54,80 +54,43 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
-
-vl dp(4005);
-int dp1[4005][4005],dp2[4005][4005];
-ll int n,k;
-bool f=0;
-ll int findans(int i,ll int sum1,ll int sum2,vl ar)
-{  
-    // deb2(sum1,sum2);
-   
-
-    if((sum1>=k and sum2>=k)) 
-    {   
-       
-        return i;
-    }
-    if(i>=n) {return LONG_MAX;}
-    
-    if(sum1>=k)
-    {   
-        if(dp2[sum2][i]==-1)
-        dp2[sum2][i]=findans(i+1,sum1,ar[i]+sum2,ar);
-        return dp2[sum2][i];
-    }
-    if(sum2>=k)
-    {  
-        if(dp1[sum1][i]==-1)
-        dp1[sum1][i]=findans(i+1,sum1+ar[i],sum2,ar);
-        return dp1[sum1][i];
-    }
-        if(dp2[sum2][i]==-1)
-        dp2[sum2][i]=findans(i+1,sum1,ar[i]+sum2,ar);
-        if(dp1[sum1][i]==-1)
-        dp1[sum1][i]=findans(i+1,sum1+ar[i],sum2,ar);
-        return dp2[sum2][i]=dp1[sum1][i]=min(dp2[sum2][i],dp1[sum1][i]);
-
-    
-}
 void solve()
-    {  
-        ll int sum1=0,sum2=0;
-        cin>>n>>k;
+    { 
+        ll int n;
+        cin>>n;
+        vl br(45,0);
         vl ar(n);
-        fo(i,n) cin>>ar[i],vis[i]=0;
-        sort(all(ar),greater<ll>());
-        // ll int sum1=0;
-        ll int ans=0;
-        for(int i=0;i<n;i++)
-        {
-            if((sum1+ar[i])<=k)
-            {
-                sum1+=ar[i];
-                vis[i]=1;
-                ans++;
-            }
+        int k=1;
+        fo(i,n) {cin>>ar[i];
+        if((ar[i]==4||ar[i]==8||ar[i]==15||ar[i]==16||ar[i]==23||ar[i]==42) and br[ar[i]]==0) br[ar[i]]=i+1;
         }
-         for(int i=0;i<n;i++)
-        {
-            if(vis[i]==0 and (sum2+ar[i])<=k)
-            {
-                sum2+=ar[i];
-                vis[i]=1;
-                ans++;
-            }
+        fo(i,n)
+        {   
+              if(ar[i]==4 and br[4]==0) br[4]=i+1;
+              if(ar[i]==8 and br[4]>br[8]) br[8]=i+1; 
+              if(ar[i]==15 and (br[8]>br[15]||br[4]>br[15])) br[15]=i+1;
+              if(ar[i]==16 and (br[8]>br[16]||br[4]>br[16])||br[15]>br[16]) br[16]=i+1;
+              if(ar[i]==23 and (br[8]>br[23]||br[4]>br[23]||br[15]>br[23]||br[16]>br[23])) br[23]=i+1;
+              if(ar[i]==42 and (br[8]>br[42]||br[4]>br[42]||br[15]>br[42]||br[16]>br[42]||br[23]>br[42])) br[42]=i+1;
+            
         }
+        bool f=0;
+        if((br[4]<br[8] and br[8]<br[15] and br[15]<br[16] and br[16]<br[23] and br[23]<br[42]))  f=1;
+        if(br[4]==0||br[8]==0||br[15]==0||br[16]==0||br[23]==0||br[42]==0) f=0;
+        if(f==0)
+        {
+            cout<<n;
+            return;
+        }
+        cout<<n%6;
         
-        deb2(sum1,sum2);
-
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
-    wi(t)
+    // wi(t)
     {
       solve();
     }

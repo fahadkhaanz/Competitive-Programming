@@ -54,80 +54,34 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
-
-vl dp(4005);
-int dp1[4005][4005],dp2[4005][4005];
-ll int n,k;
-bool f=0;
-ll int findans(int i,ll int sum1,ll int sum2,vl ar)
-{  
-    // deb2(sum1,sum2);
-   
-
-    if((sum1>=k and sum2>=k)) 
-    {   
-       
-        return i;
-    }
-    if(i>=n) {return LONG_MAX;}
-    
-    if(sum1>=k)
-    {   
-        if(dp2[sum2][i]==-1)
-        dp2[sum2][i]=findans(i+1,sum1,ar[i]+sum2,ar);
-        return dp2[sum2][i];
-    }
-    if(sum2>=k)
-    {  
-        if(dp1[sum1][i]==-1)
-        dp1[sum1][i]=findans(i+1,sum1+ar[i],sum2,ar);
-        return dp1[sum1][i];
-    }
-        if(dp2[sum2][i]==-1)
-        dp2[sum2][i]=findans(i+1,sum1,ar[i]+sum2,ar);
-        if(dp1[sum1][i]==-1)
-        dp1[sum1][i]=findans(i+1,sum1+ar[i],sum2,ar);
-        return dp2[sum2][i]=dp1[sum1][i]=min(dp2[sum2][i],dp1[sum1][i]);
-
-    
-}
 void solve()
-    {  
-        ll int sum1=0,sum2=0;
-        cin>>n>>k;
+    { 
+        ll int n;
+        cin>>n;
         vl ar(n);
-        fo(i,n) cin>>ar[i],vis[i]=0;
-        sort(all(ar),greater<ll>());
-        // ll int sum1=0;
-        ll int ans=0;
+        ll int sum=0;
+        fo(i,n) cin>>ar[i],sum+=ar[i];
+        ll int cnt=0;
+        ll int avg=0;
+        sortall(ar);
+        ll int bf=0;
         for(int i=0;i<n;i++)
         {
-            if((sum1+ar[i])<=k)
-            {
-                sum1+=ar[i];
-                vis[i]=1;
-                ans++;
-            }
+            avg+=(ar[i]*i)-bf;
+            bf+=ar[i];
         }
-         for(int i=0;i<n;i++)
-        {
-            if(vis[i]==0 and (sum2+ar[i])<=k)
-            {
-                sum2+=ar[i];
-                vis[i]=1;
-                ans++;
-            }
-        }
-        
-        deb2(sum1,sum2);
-
+        avg*=2;
+        avg+=sum;
+        ll int gc=gcd(avg,n);
+        // deb2(gc,cnt);
+        cout<<avg/gc<<" "<<n/gc;
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
-    wi(t)
+    // wi(t)
     {
       solve();
     }

@@ -54,73 +54,33 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
-
-vl dp(4005);
-int dp1[4005][4005],dp2[4005][4005];
-ll int n,k;
-bool f=0;
-ll int findans(int i,ll int sum1,ll int sum2,vl ar)
-{  
-    // deb2(sum1,sum2);
-   
-
-    if((sum1>=k and sum2>=k)) 
-    {   
-       
-        return i;
-    }
-    if(i>=n) {return LONG_MAX;}
-    
-    if(sum1>=k)
-    {   
-        if(dp2[sum2][i]==-1)
-        dp2[sum2][i]=findans(i+1,sum1,ar[i]+sum2,ar);
-        return dp2[sum2][i];
-    }
-    if(sum2>=k)
-    {  
-        if(dp1[sum1][i]==-1)
-        dp1[sum1][i]=findans(i+1,sum1+ar[i],sum2,ar);
-        return dp1[sum1][i];
-    }
-        if(dp2[sum2][i]==-1)
-        dp2[sum2][i]=findans(i+1,sum1,ar[i]+sum2,ar);
-        if(dp1[sum1][i]==-1)
-        dp1[sum1][i]=findans(i+1,sum1+ar[i],sum2,ar);
-        return dp2[sum2][i]=dp1[sum1][i]=min(dp2[sum2][i],dp1[sum1][i]);
-
-    
-}
 void solve()
-    {  
-        ll int sum1=0,sum2=0;
-        cin>>n>>k;
+    { 
+        int n;
+        cin>>n;
         vl ar(n);
-        fo(i,n) cin>>ar[i],vis[i]=0;
-        sort(all(ar),greater<ll>());
-        // ll int sum1=0;
-        ll int ans=0;
+        ll int onec=0,zeroc=0,odlen=0;
         for(int i=0;i<n;i++)
         {
-            if((sum1+ar[i])<=k)
-            {
-                sum1+=ar[i];
-                vis[i]=1;
-                ans++;
-            }
+            string s;
+            cin>>s;
+            ar[i]=s.size();
+            onec+=count(all(s),'1');
+            zeroc+=count(all(s),'0');
+            if(s.size()%2!=0) odlen++;
         }
-         for(int i=0;i<n;i++)
+        sort(all(ar),greater<int>());
+        if((odlen==0 and onec%2!=0 and zeroc%2!=0))
         {
-            if(vis[i]==0 and (sum2+ar[i])<=k)
-            {
-                sum2+=ar[i];
-                vis[i]=1;
-                ans++;
-            }
+            cout<<n-1<<"\n";
+        }
+        else
+        {
+            cout<<n<<"\n";
         }
         
-        deb2(sum1,sum2);
-
+        
+        // cout<<ans<<"\n";
     }
 
 int main() {

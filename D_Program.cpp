@@ -54,73 +54,38 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
-
-vl dp(4005);
-int dp1[4005][4005],dp2[4005][4005];
-ll int n,k;
-bool f=0;
-ll int findans(int i,ll int sum1,ll int sum2,vl ar)
-{  
-    // deb2(sum1,sum2);
-   
-
-    if((sum1>=k and sum2>=k)) 
-    {   
-       
-        return i;
-    }
-    if(i>=n) {return LONG_MAX;}
-    
-    if(sum1>=k)
-    {   
-        if(dp2[sum2][i]==-1)
-        dp2[sum2][i]=findans(i+1,sum1,ar[i]+sum2,ar);
-        return dp2[sum2][i];
-    }
-    if(sum2>=k)
-    {  
-        if(dp1[sum1][i]==-1)
-        dp1[sum1][i]=findans(i+1,sum1+ar[i],sum2,ar);
-        return dp1[sum1][i];
-    }
-        if(dp2[sum2][i]==-1)
-        dp2[sum2][i]=findans(i+1,sum1,ar[i]+sum2,ar);
-        if(dp1[sum1][i]==-1)
-        dp1[sum1][i]=findans(i+1,sum1+ar[i],sum2,ar);
-        return dp2[sum2][i]=dp1[sum1][i]=min(dp2[sum2][i],dp1[sum1][i]);
-
-    
-}
 void solve()
-    {  
-        ll int sum1=0,sum2=0;
-        cin>>n>>k;
-        vl ar(n);
-        fo(i,n) cin>>ar[i],vis[i]=0;
-        sort(all(ar),greater<ll>());
-        // ll int sum1=0;
-        ll int ans=0;
-        for(int i=0;i<n;i++)
+    { 
+        ll int n,q;
+        cin>>n>>q;
+        string s;
+        cin>>s;
+        vl plus(n,0),minus(n,0);
+        if(s[0]=='-') minus[0]=1;
+        else plus[0]=1;
+        for(int i=1;i<n;i++)
         {
-            if((sum1+ar[i])<=k)
-            {
-                sum1+=ar[i];
-                vis[i]=1;
-                ans++;
-            }
-        }
-         for(int i=0;i<n;i++)
-        {
-            if(vis[i]==0 and (sum2+ar[i])<=k)
-            {
-                sum2+=ar[i];
-                vis[i]=1;
-                ans++;
-            }
+            if(s[i]=='-') {minus[i]=1+minus[i-1];plus[i]=plus[i-1];}
+            else {plus[i]=1+plus[i-1];minus[i]=minus[i-1];}
+
         }
         
-        deb2(sum1,sum2);
+        while(q--)
+        {
+            ll int l,r;
+            cin>>l>>r;
+            l-=2;
+            r--;
+            ll int pl=0,min=0;
+            if(l>=0)
+            pl=plus[l];
+            if(r>=0)
+            min=minus[l];
+            pl+=plus[n-1]-plus[r];
+            min+=minus[n-1]-minus[r];
 
+            cout<<pl+min<<"\n";
+        }
     }
 
 int main() {

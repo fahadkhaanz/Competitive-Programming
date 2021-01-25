@@ -54,82 +54,95 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
-
-vl dp(4005);
-int dp1[4005][4005],dp2[4005][4005];
-ll int n,k;
-bool f=0;
-ll int findans(int i,ll int sum1,ll int sum2,vl ar)
-{  
-    // deb2(sum1,sum2);
+bool prime[1000005];
+vector<int> ans;
+void SieveOfEratosthenes(int n)
+{
+    // Create a boolean array 
+    // "prime[0..n]" and initialize
+    // all entries it as true. 
+    // A value in prime[i] will
+    // finally be false if i is 
+    // Not a prime, else true.
    
-
-    if((sum1>=k and sum2>=k)) 
-    {   
-       
-        return i;
-    }
-    if(i>=n) {return LONG_MAX;}
-    
-    if(sum1>=k)
-    {   
-        if(dp2[sum2][i]==-1)
-        dp2[sum2][i]=findans(i+1,sum1,ar[i]+sum2,ar);
-        return dp2[sum2][i];
-    }
-    if(sum2>=k)
-    {  
-        if(dp1[sum1][i]==-1)
-        dp1[sum1][i]=findans(i+1,sum1+ar[i],sum2,ar);
-        return dp1[sum1][i];
-    }
-        if(dp2[sum2][i]==-1)
-        dp2[sum2][i]=findans(i+1,sum1,ar[i]+sum2,ar);
-        if(dp1[sum1][i]==-1)
-        dp1[sum1][i]=findans(i+1,sum1+ar[i],sum2,ar);
-        return dp2[sum2][i]=dp1[sum1][i]=min(dp2[sum2][i],dp1[sum1][i]);
-
-    
-}
-void solve()
-    {  
-        ll int sum1=0,sum2=0;
-        cin>>n>>k;
-        vl ar(n);
-        fo(i,n) cin>>ar[i],vis[i]=0;
-        sort(all(ar),greater<ll>());
-        // ll int sum1=0;
-        ll int ans=0;
-        for(int i=0;i<n;i++)
+    memset(prime, true, sizeof(prime));
+ 
+    for (int p = 2; p * p <= n; p++)
+    {
+        // If prime[p] is not changed, 
+        // then it is a prime
+        if (prime[p] == true) 
         {
-            if((sum1+ar[i])<=k)
-            {
-                sum1+=ar[i];
-                vis[i]=1;
-                ans++;
-            }
+            // Update all multiples 
+            // of p greater than or
+            // equal to the square of it
+            // numbers which are multiple 
+            // of p and are less than p^2 
+            // are already been marked.
+            for (int i = p * p; i <= n; i += p)
+                prime[i] = false;
         }
-         for(int i=0;i<n;i++)
+    }
+ 
+    // Print all prime numbers
+    for (int p = 2; p <= n; p++)
+        if (prime[p])
+            ans.push_back(p);
+}
+
+
+int find(int t)
+{
+    int i=0;
+    int j=ans.size()-1;
+    int mid=(i+j)/2;
+    int ok=-1;
+    while(i<=j)
+    {   
+        int mid=(i+j)/2;
+        if(ans[mid]==t)
+        return ans[mid];
+        if(ans[mid]<t)
         {
-            if(vis[i]==0 and (sum2+ar[i])<=k)
-            {
-                sum2+=ar[i];
-                vis[i]=1;
-                ans++;
-            }
+                ok=mid;
+                i=mid+1;
+        }
+        else
+        {
+            j=mid-1;
         }
         
-        deb2(sum1,sum2);
-
     }
-
+    return ans[ok];
+}
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
-
+    SieveOfEratosthenes(1000000);
+    vl pre(1000005);
+    pre[0]=0;
+    map<ll,ll> mep;
+    for(int i=1;i<ans.size();i++)
+    {
+        if((ans[i]-ans[i-1])==2)
+        pre[i]=pre[i-1]+1;
+        else pre[i]=pre[i-1];//and prime[i-1]==1 and )
+        // cout<<pre[i]<<" ";
+        mep[ans[i]]=pre[i];
+    }
     wi(t)
     {
-      solve();
+      int n;
+      cin>>n;
+      if(n<5)
+      {
+          cout<<"0\n";
+          continue;
+      }
+      int lower=find(n);
+    //   deb2(lower,n);
+      cout<<mep[lower]<<"\n";
+
     }
 
     return 0;

@@ -1,0 +1,1 @@
+{"name":"Local: hashcode","url":"f:\\My cp\\hashcode.cpp","tests":[{"id":1610524424666,"input":"5 1 2 1 \n3 onion pepper olive\n3 mushroom tomato basil\n3 chicken mushroom pepper\n3 tomato mushroom basil\n2 chicken basil","output":"2\n2 1 4\n3 0 2 3"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"f:\\My cp\\hashcode.cpp","group":"local","local":true}

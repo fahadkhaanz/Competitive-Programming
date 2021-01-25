@@ -7,7 +7,10 @@
         "vector": "cpp",
         "ostream": "cpp",
         "random": "cpp",
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "iosfwd": "cpp",
+        "*.tcc": "cpp",
+        "fstream": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

@@ -54,73 +54,48 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
-
-vl dp(4005);
-int dp1[4005][4005],dp2[4005][4005];
-ll int n,k;
-bool f=0;
-ll int findans(int i,ll int sum1,ll int sum2,vl ar)
-{  
-    // deb2(sum1,sum2);
-   
-
-    if((sum1>=k and sum2>=k)) 
-    {   
-       
-        return i;
-    }
-    if(i>=n) {return LONG_MAX;}
-    
-    if(sum1>=k)
-    {   
-        if(dp2[sum2][i]==-1)
-        dp2[sum2][i]=findans(i+1,sum1,ar[i]+sum2,ar);
-        return dp2[sum2][i];
-    }
-    if(sum2>=k)
-    {  
-        if(dp1[sum1][i]==-1)
-        dp1[sum1][i]=findans(i+1,sum1+ar[i],sum2,ar);
-        return dp1[sum1][i];
-    }
-        if(dp2[sum2][i]==-1)
-        dp2[sum2][i]=findans(i+1,sum1,ar[i]+sum2,ar);
-        if(dp1[sum1][i]==-1)
-        dp1[sum1][i]=findans(i+1,sum1+ar[i],sum2,ar);
-        return dp2[sum2][i]=dp1[sum1][i]=min(dp2[sum2][i],dp1[sum1][i]);
-
-    
-}
 void solve()
-    {  
-        ll int sum1=0,sum2=0;
-        cin>>n>>k;
-        vl ar(n);
-        fo(i,n) cin>>ar[i],vis[i]=0;
-        sort(all(ar),greater<ll>());
-        // ll int sum1=0;
-        ll int ans=0;
+    { 
+        ll int n;
+        cin>>n;
+        string a,b;
+        cin>>a>>b;
+        string s1=a,s2=b;
+        sortall(a);
+        sortall(b);
+        int c=0;
+        int in1=-1,in2=-1;
         for(int i=0;i<n;i++)
         {
-            if((sum1+ar[i])<=k)
-            {
-                sum1+=ar[i];
-                vis[i]=1;
-                ans++;
-            }
+            if(s1[i]=='?') in1=i;
+            if(s2[i]=='?') in2=i;
         }
-         for(int i=0;i<n;i++)
-        {
-            if(vis[i]==0 and (sum2+ar[i])<=k)
-            {
-                sum2+=ar[i];
-                vis[i]=1;
-                ans++;
-            }
-        }
-        
-        deb2(sum1,sum2);
-
+       int i=1,j=1;
+       map<char,int> mep;
+     for(int i=1;i<n;i++)
+     {
+         mep[a[i]]++;
+     }
+     for(int i=1;i<n;i++)
+     {
+         if(mep[b[i]])
+         {
+             mep[b[i]]--;
+         }
+         else
+         {
+             c++;
+         }
+         
+     }
+    //    deb2(i,j);
+       if(c<=1)
+       cout<<"YES\n";
+       else
+       {
+           cout<<"NO\n";
+       }
+       
     }
 
 int main() {

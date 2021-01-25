@@ -54,72 +54,48 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
-
-vl dp(4005);
-int dp1[4005][4005],dp2[4005][4005];
-ll int n,k;
-bool f=0;
-ll int findans(int i,ll int sum1,ll int sum2,vl ar)
-{  
-    // deb2(sum1,sum2);
-   
-
-    if((sum1>=k and sum2>=k)) 
-    {   
-       
-        return i;
-    }
-    if(i>=n) {return LONG_MAX;}
-    
-    if(sum1>=k)
-    {   
-        if(dp2[sum2][i]==-1)
-        dp2[sum2][i]=findans(i+1,sum1,ar[i]+sum2,ar);
-        return dp2[sum2][i];
-    }
-    if(sum2>=k)
-    {  
-        if(dp1[sum1][i]==-1)
-        dp1[sum1][i]=findans(i+1,sum1+ar[i],sum2,ar);
-        return dp1[sum1][i];
-    }
-        if(dp2[sum2][i]==-1)
-        dp2[sum2][i]=findans(i+1,sum1,ar[i]+sum2,ar);
-        if(dp1[sum1][i]==-1)
-        dp1[sum1][i]=findans(i+1,sum1+ar[i],sum2,ar);
-        return dp2[sum2][i]=dp1[sum1][i]=min(dp2[sum2][i],dp1[sum1][i]);
-
-    
-}
+bool comp(const tuple<int, int, int>& a,  
+               const tuple<int, int, int>& b)
+               {
+                   if(get<0>(a)>=get<0>(b) and get<1>(a)>=get<1>(b) and get<2>(a)>=get<2>(b))
+                   {
+                       if(get<0>(a)>get<0>(b)||get<1>(a)>get<1>(b)||get<2>(a)>get<2>(b)) return true;
+                       return false;
+                   }
+                   return false;
+               }
 void solve()
-    {  
-        ll int sum1=0,sum2=0;
-        cin>>n>>k;
-        vl ar(n);
-        fo(i,n) cin>>ar[i],vis[i]=0;
-        sort(all(ar),greater<ll>());
-        // ll int sum1=0;
-        ll int ans=0;
-        for(int i=0;i<n;i++)
+    { 
+        vector<tuple<int,int,int>> ar;
+        for(int i=0;i<3;i++)
         {
-            if((sum1+ar[i])<=k)
-            {
-                sum1+=ar[i];
-                vis[i]=1;
-                ans++;
-            }
+            int a,b,c;
+            cin>>a>>b>>c;
+            ar.push_back(make_tuple(a,b,c));
         }
-         for(int i=0;i<n;i++)
+        sort(ar.begin(),ar.end(),comp);
+        for(int i=0;i<ar.size()-1;i++)
         {
-            if(vis[i]==0 and (sum2+ar[i])<=k)
-            {
-                sum2+=ar[i];
-                vis[i]=1;
-                ans++;
-            }
+           if(get<0>(ar[i])>=get<0>(ar[i+1]) and get<1>(ar[i])>=get<1>(ar[i+1]) and get<2>(ar[i])>=get<2>(ar[i+1]))
+                   {
+                      if(get<0>(ar[i])>get<0>(ar[i+1])||get<1>(ar[i])>get<1>(ar[i+1])||get<2>(ar[i])>get<2>(ar[i+1])) continue;
+                      else
+                      {
+                         cout<<"no\n";
+                         return;
+                      }
+                      
+                   }
+                   else
+                   {
+                        cout<<"no\n";
+                         return;
+                   }
+                   
+                
         }
-        
-        deb2(sum1,sum2);
+        cout<<"yes\n";
+
 
     }
 

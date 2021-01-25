@@ -54,80 +54,64 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
-
-vl dp(4005);
-int dp1[4005][4005],dp2[4005][4005];
-ll int n,k;
-bool f=0;
-ll int findans(int i,ll int sum1,ll int sum2,vl ar)
-{  
-    // deb2(sum1,sum2);
-   
-
-    if((sum1>=k and sum2>=k)) 
-    {   
-       
-        return i;
-    }
-    if(i>=n) {return LONG_MAX;}
-    
-    if(sum1>=k)
-    {   
-        if(dp2[sum2][i]==-1)
-        dp2[sum2][i]=findans(i+1,sum1,ar[i]+sum2,ar);
-        return dp2[sum2][i];
-    }
-    if(sum2>=k)
-    {  
-        if(dp1[sum1][i]==-1)
-        dp1[sum1][i]=findans(i+1,sum1+ar[i],sum2,ar);
-        return dp1[sum1][i];
-    }
-        if(dp2[sum2][i]==-1)
-        dp2[sum2][i]=findans(i+1,sum1,ar[i]+sum2,ar);
-        if(dp1[sum1][i]==-1)
-        dp1[sum1][i]=findans(i+1,sum1+ar[i],sum2,ar);
-        return dp2[sum2][i]=dp1[sum1][i]=min(dp2[sum2][i],dp1[sum1][i]);
-
-    
-}
 void solve()
-    {  
-        ll int sum1=0,sum2=0;
-        cin>>n>>k;
-        vl ar(n);
-        fo(i,n) cin>>ar[i],vis[i]=0;
-        sort(all(ar),greater<ll>());
-        // ll int sum1=0;
-        ll int ans=0;
-        for(int i=0;i<n;i++)
-        {
-            if((sum1+ar[i])<=k)
-            {
-                sum1+=ar[i];
-                vis[i]=1;
-                ans++;
-            }
-        }
-         for(int i=0;i<n;i++)
-        {
-            if(vis[i]==0 and (sum2+ar[i])<=k)
-            {
-                sum2+=ar[i];
-                vis[i]=1;
-                ans++;
-            }
-        }
-        
-        deb2(sum1,sum2);
+    { 
+        int n,m,k;
+        cin>>n>>m>>k;
+        int i=1,j=1;
+        bool f=0;
+        if(j>m) j=1;
+        vector<pair<int,int>> ans;
+       while(i<=n)
+        {   
 
+            vector<pair<int,int>> ar;
+            while(j<=m)
+            {
+                ar.push_back({i,j});
+                // cout<<i<<" "<<j<<" ";
+                j++;
+            }
+            j=1;
+            if(f==0)
+            {
+                for(int l=0;l<ar.size();l++) ans.push_back({ar[l].F,ar[l].S});
+                f=1;
+            }
+            else
+            {
+                 reverse(all(ar));
+                 for(int l=0;l<ar.size();l++) ans.push_back({ar[l].F,ar[l].S});
+                 f=0;
+            }
+            
+          i++;
+        }
+        bool ok=0;
+        k--;
+        i=0;
+        if(k)
+        {
+             for(;i<ans.size() and k>0;i+=2)
+             {
+             cout<<"2 "<<ans[i].F<<" "<<ans[i].S<<" "<<ans[i+1].F<<" "<<ans[i+1].S<<"\n";
+             k--;
+             }
+        }
+       
+        cout<<ans.size()-i<<" ";
+        for(j=i;j<ans.size();j++)
+        {
+            cout<<ans[j].F<<" "<<ans[j].S<<" ";
+        }
+        cout<<endl;
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
-    wi(t)
+    // wi(t)
     {
       solve();
     }
@@ -162,6 +146,7 @@ void dfs(int u, int par){
         dfs(v, u);
     }
 }
+
 
 
 

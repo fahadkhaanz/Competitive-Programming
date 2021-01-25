@@ -5,12 +5,12 @@ using namespace std;
 #define fo(i,n) for(int i=0;i<n;i++)
 #define Fo(i,k,n) for(i=k;k<n?i<n:i>n;k<n?i+=1:i-=1)
 #define ll long long
-#define si(x)	scanf("%d",&x)
-#define sl(x)	scanf("%lld",&x)
-#define ss(s)	scanf("%s",s)
-#define pi(x)	printf("%d\n",x)
-#define pl(x)	printf("%lld\n",x)
-#define ps(s)	printf("%s\n",s)
+#define si(x)   scanf("%d",&x)
+#define sl(x)   scanf("%lld",&x)
+#define ss(s)   scanf("%s",s)
+#define pi(x)   printf("%d\n",x)
+#define pl(x)   printf("%lld\n",x)
+#define ps(s)   printf("%s\n",s)
 #define deb(x) cout << #x << "=" << x << endl
 #define deb2(x, y) cout << #x << "=" << x << "," << #y << "=" << y << endl
 #define pb push_back
@@ -23,14 +23,14 @@ using namespace std;
 #define tr(it, a) for(auto it = a.begin(); it != a.end(); it++)
 #define PI 3.1415926535897932384626
 #define wi(t) int t;cin>>t;while(t--)
-typedef pair<int, int>	pii;
-typedef pair<ll, ll>	pl;
-typedef vector<int>		vi;
-typedef vector<ll>		vl;
-typedef vector<pii>		vpii;
-typedef vector<pl>		vpl;
-typedef vector<vi>		vvi;
-typedef vector<vl>		vvl;
+typedef pair<int, int>  pii;
+typedef pair<ll, ll>    pl;
+typedef vector<int>     vi;
+typedef vector<ll>      vl;
+typedef vector<pii>     vpii;
+typedef vector<pl>      vpl;
+typedef vector<vi>      vvi;
+typedef vector<vl>      vvl;
 mt19937_64 rang(chrono::high_resolution_clock::now().time_since_epoch().count());
 int rng(int lim) {
     uniform_int_distribution<int> uid(0,lim-1);
@@ -54,73 +54,50 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
-
-vl dp(4005);
-int dp1[4005][4005],dp2[4005][4005];
-ll int n,k;
-bool f=0;
-ll int findans(int i,ll int sum1,ll int sum2,vl ar)
-{  
-    // deb2(sum1,sum2);
-   
-
-    if((sum1>=k and sum2>=k)) 
-    {   
-       
-        return i;
-    }
-    if(i>=n) {return LONG_MAX;}
-    
-    if(sum1>=k)
-    {   
-        if(dp2[sum2][i]==-1)
-        dp2[sum2][i]=findans(i+1,sum1,ar[i]+sum2,ar);
-        return dp2[sum2][i];
-    }
-    if(sum2>=k)
-    {  
-        if(dp1[sum1][i]==-1)
-        dp1[sum1][i]=findans(i+1,sum1+ar[i],sum2,ar);
-        return dp1[sum1][i];
-    }
-        if(dp2[sum2][i]==-1)
-        dp2[sum2][i]=findans(i+1,sum1,ar[i]+sum2,ar);
-        if(dp1[sum1][i]==-1)
-        dp1[sum1][i]=findans(i+1,sum1+ar[i],sum2,ar);
-        return dp2[sum2][i]=dp1[sum1][i]=min(dp2[sum2][i],dp1[sum1][i]);
-
-    
-}
 void solve()
-    {  
-        ll int sum1=0,sum2=0;
-        cin>>n>>k;
-        vl ar(n);
-        fo(i,n) cin>>ar[i],vis[i]=0;
-        sort(all(ar),greater<ll>());
-        // ll int sum1=0;
-        ll int ans=0;
-        for(int i=0;i<n;i++)
+    { 
+        int n,m;
+        cin>>n>>m;
+        if(n==1 and m>0)
         {
-            if((sum1+ar[i])<=k)
-            {
-                sum1+=ar[i];
-                vis[i]=1;
-                ans++;
-            }
+            cout<<"-1\n";
+            return;
         }
-         for(int i=0;i<n;i++)
+        if(n==1 and m==0)
         {
-            if(vis[i]==0 and (sum2+ar[i])<=k)
-            {
-                sum2+=ar[i];
-                vis[i]=1;
-                ans++;
-            }
+            cout<<"1 ";
+            cout<<endl;
+            return;
         }
-        
-        deb2(sum1,sum2);
-
+        vector<float> V;
+        if(m!=0)
+        {
+            float x = sqrt((n*m*m)/2);
+           
+                V.push_back(x);
+                V.push_back(-1*x);
+                //cout<<(float)(sqrt(n)*m)/(1.41)<<" "<<-((float)(sqrt(n)*m)/1.41)<<" ";
+                 n=n-2;
+            
+        }
+      
+        while(n--)
+        {
+            V.push_back(0);
+            //cout<<"0 ";
+        }
+        //cout<<endl;
+        float p=0;
+        for(ll i=0;i<V.size();++i)
+        {   
+            if(V[i]==0) cout<<"0 ";
+            else 
+            cout<<V[i]<<' ';
+            // p+= (double)pow(abs(V[i]),2);
+        }
+        cout<<'\n';
+        // cout<< sqrt(p/V.size()) <<' ';
+        // cout<<"\n";
     }
 
 int main() {
@@ -162,8 +139,5 @@ void dfs(int u, int par){
         dfs(v, u);
     }
 }
-
-
-
 
 

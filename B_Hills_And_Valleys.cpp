@@ -54,72 +54,77 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
-
-vl dp(4005);
-int dp1[4005][4005],dp2[4005][4005];
-ll int n,k;
-bool f=0;
-ll int findans(int i,ll int sum1,ll int sum2,vl ar)
-{  
-    // deb2(sum1,sum2);
-   
-
-    if((sum1>=k and sum2>=k)) 
-    {   
-       
-        return i;
-    }
-    if(i>=n) {return LONG_MAX;}
-    
-    if(sum1>=k)
-    {   
-        if(dp2[sum2][i]==-1)
-        dp2[sum2][i]=findans(i+1,sum1,ar[i]+sum2,ar);
-        return dp2[sum2][i];
-    }
-    if(sum2>=k)
-    {  
-        if(dp1[sum1][i]==-1)
-        dp1[sum1][i]=findans(i+1,sum1+ar[i],sum2,ar);
-        return dp1[sum1][i];
-    }
-        if(dp2[sum2][i]==-1)
-        dp2[sum2][i]=findans(i+1,sum1,ar[i]+sum2,ar);
-        if(dp1[sum1][i]==-1)
-        dp1[sum1][i]=findans(i+1,sum1+ar[i],sum2,ar);
-        return dp2[sum2][i]=dp1[sum1][i]=min(dp2[sum2][i],dp1[sum1][i]);
-
-    
-}
 void solve()
-    {  
-        ll int sum1=0,sum2=0;
-        cin>>n>>k;
+    { 
+        ll int n;
+        cin>>n;
         vl ar(n);
-        fo(i,n) cin>>ar[i],vis[i]=0;
-        sort(all(ar),greater<ll>());
-        // ll int sum1=0;
-        ll int ans=0;
-        for(int i=0;i<n;i++)
+        fo(i,n) cin>>ar[i];
+        if(n<=3)
         {
-            if((sum1+ar[i])<=k)
-            {
-                sum1+=ar[i];
-                vis[i]=1;
-                ans++;
-            }
+            cout<<0<<"\n";
+            return;
         }
-         for(int i=0;i<n;i++)
-        {
-            if(vis[i]==0 and (sum2+ar[i])<=k)
-            {
-                sum2+=ar[i];
-                vis[i]=1;
-                ans++;
-            }
-        }
-        
-        deb2(sum1,sum2);
+        ll int c=0;
+        int v=-1,h=-1;
+         string s,tmp;
+       for(int i=1;i<n-1;i++)
+       {
+           if(ar[i]>ar[i-1] and ar[i]>ar[i+1]) c++,s+='h';
+           if(ar[i]<ar[i-1] and ar[i]<ar[i+1]) c++,s+='v';
+           
+       }
+       bool ok=0;
+       if(s.size()>=3)
+       {
+            for(int i=0;i<=s.size()-3;i++)
+       {
+           if(s.substr(i,3)=="hvh"||s.substr(i,3)=="vhv") {ok=1;break;}
+       }
+       }
+      
+       
+    //    deb(c);
+      if(ok)
+      {
+          c=c-3;
+          cout<<c<<"\n";
+          return;
+      }
+      
+       ll int hll=0,vll=0;
+       
+       
+       for(int i=0;i<=n-5;i++)
+       {
+           if(ar[i+1]>ar[i] and ar[i+1]>ar[i+2] and ar[i+2]<ar[i+3] and ar[i+2]<ar[i+1] and ar[i+3]>ar[i+2] and ar[i+3]>ar[i+4])
+           {
+               cout<<c-3<<"\n";
+               return;
+           }
+          if(ar[i+1]<ar[i] and ar[i+1]<ar[i+2] and ar[i+2]>ar[i+3] and ar[i+2]>ar[i+1] and ar[i+3]<ar[i+2] and ar[i+3]<ar[i+4])// and ar[i+1]==ar[i+3])
+           {
+               cout<<c-3<<"\n";
+               return;
+           }
+       }
+       for(int i=0;i<=n-4;i++)
+       {
+           if(ar[i+1]>ar[i] and ar[i+1]>ar[i+2] and ar[i+2]<ar[i+1] and ar[i+2]<ar[i+3])
+           {
+               cout<<c-2<<"\n";
+               return;
+           }
+            if(ar[i+1]<ar[i] and ar[i+1]<ar[i+2] and ar[i+2]>ar[i+1] and ar[i+2]>ar[i+3])
+           {
+               cout<<c-2<<"\n";
+               return;
+           }
+       }
+       if(c!=0)
+       cout<<c-1<<"\n";
+       else 
+       cout<<c<<"\n";
 
     }
 

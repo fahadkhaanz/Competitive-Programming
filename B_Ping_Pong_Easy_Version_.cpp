@@ -45,7 +45,8 @@ const int N = 3e5, M = N;
 //=======================
 
 vi adj[N];
-vi vis(N);
+vi vis(1002);
+int sz=0;
 ll int gcd(ll int a, ll int b) 
 { 
     if (b == 0) 
@@ -53,81 +54,60 @@ ll int gcd(ll int a, ll int b)
     return gcd(b, a % b);  
       
 } 
+ vl ar(202+1),br(202+1);
 int tc=1;
-
-vl dp(4005);
-int dp1[4005][4005],dp2[4005][4005];
-ll int n,k;
-bool f=0;
-ll int findans(int i,ll int sum1,ll int sum2,vl ar)
-{  
-    // deb2(sum1,sum2);
-   
-
-    if((sum1>=k and sum2>=k)) 
+void dfs(int u)
+{
+    vis[u]=1;
+    for(int i=1;i<=sz;i++)
     {   
-       
-        return i;
+        if(vis[i]) continue;
+        if(ar[u]>ar[i] and br[i]>ar[u])
+        dfs(i);
+        else if(br[u]>ar[i] and br[i]>br[u])
+        dfs(i);
     }
-    if(i>=n) {return LONG_MAX;}
-    
-    if(sum1>=k)
-    {   
-        if(dp2[sum2][i]==-1)
-        dp2[sum2][i]=findans(i+1,sum1,ar[i]+sum2,ar);
-        return dp2[sum2][i];
-    }
-    if(sum2>=k)
-    {  
-        if(dp1[sum1][i]==-1)
-        dp1[sum1][i]=findans(i+1,sum1+ar[i],sum2,ar);
-        return dp1[sum1][i];
-    }
-        if(dp2[sum2][i]==-1)
-        dp2[sum2][i]=findans(i+1,sum1,ar[i]+sum2,ar);
-        if(dp1[sum1][i]==-1)
-        dp1[sum1][i]=findans(i+1,sum1+ar[i],sum2,ar);
-        return dp2[sum2][i]=dp1[sum1][i]=min(dp2[sum2][i],dp1[sum1][i]);
-
-    
 }
 void solve()
-    {  
-        ll int sum1=0,sum2=0;
-        cin>>n>>k;
-        vl ar(n);
-        fo(i,n) cin>>ar[i],vis[i]=0;
-        sort(all(ar),greater<ll>());
-        // ll int sum1=0;
-        ll int ans=0;
+    { 
+        int n;
+        cin>>n;
+        // for(int i=1;i<=n;i++)  vis[i]=0;
+       
         for(int i=0;i<n;i++)
         {
-            if((sum1+ar[i])<=k)
+            ll int q,l,r;
+            cin>>q>>l>>r;
+            if(q==1)
             {
-                sum1+=ar[i];
-                vis[i]=1;
-                ans++;
+                sz++;
+                ar[sz]=l;br[sz]=r;
             }
-        }
-         for(int i=0;i<n;i++)
-        {
-            if(vis[i]==0 and (sum2+ar[i])<=k)
-            {
-                sum2+=ar[i];
-                vis[i]=1;
-                ans++;
+            else
+            {  
+               for(int j=1;j<=101;j++) vis[j]=0;
+                dfs(l);
+               
+                if(vis[r]==1) 
+                {
+                    cout<<"YES\n";
+                }
+                else
+                {
+                    cout<<"NO\n";
+                }
+                
             }
+            
         }
         
-        deb2(sum1,sum2);
-
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
-    wi(t)
+    // wi(t)
     {
       solve();
     }
