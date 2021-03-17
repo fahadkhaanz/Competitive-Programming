@@ -1,0 +1,1 @@
+{"name":"Local: quora","url":"f:\\My cp\\quora.cpp","tests":[{"id":1612622646986,"input":"4 6\n3 2 3 3\n3 3 3 4\n4 3 4 4\n1 1 2 1\n1 4 2 4\n2 3 3 3","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"f:\\My cp\\quora.cpp","group":"local","local":true}
