@@ -56,60 +56,72 @@ ll int gcd(ll int a, ll int b)
 int tc=1;
 void solve()
     { 
-        for(int i=1;i<=1000;i++)
+        int n;
+        cin>>n;
+        char ar[n][n];
+         int ii=-1,jj=-1;
+         int xx=-1,yy=-1;
+         bool f=0;
+        for(int i=0;i<n;i++)
         {
-            cout<<i*i<<endl;
-            int ok;
-            cin>>ok;
-            if(ok)
+            for(int j=0;j<n;j++)
+            { cin>>ar[i][j];
+            if(ar[i][j]=='*' and f==0)
             {
-                break;
+                f=1;
+                ii=i;
+                jj=j;
             }
+             if(ar[i][j]=='*' and f==1)
+            {
+                f=1;
+                xx=i;
+                yy=j;
+            }
+            
         }
        
 
-        ll int n,m,k;
-        cin>>n>>m>>k;
-        ll int ans=0;
-        if(n%2==0 and m%2==0)
+        }
+        if(yy==jj)
         {
-            for(int i=2;i<=n;i+=2)
+            if(yy>=1)
             {
-                ans^=(i+k);
+                ar[ii][yy-1]='*';
+                ar[xx][yy-1]='*';
             }
-            for(int i=m+2;i<=n+m;i+=2)
+            else
             {
-                ans^=(i+k);
-            }
-        }
-       else if((m+n)%2!=0)
-        {    
-            int nn,mm;
-            if(n%2==0) nn=n,mm=m;
-            else nn=m,mm=n;
-            for(int i=2;i<=nn;i+=2)
-            {
-                 ans^=(i+k);
-            }
-            for(int i=mm+2;i<=n+m;i+=2)
-            {
-                 ans^=(i+k);
+                ar[ii][yy+1]='*';
+                ar[xx][yy+1]='*';
             }
         }
-        else
+        else if(xx==ii)
         {
-            for(int i=2;i<=n+m;i+=2)
+             if(xx>=1)
             {
-                 ans^=(i+k);
+                ar[ii-1][jj]='*';
+                ar[xx-1][yy]='*';
             }
-            for(int i=min(n,m)+2;i<=max(n,m);i+=2)
+            else
             {
-                 ans^=(i+k);
+                ar[ii+1][jj]='*';
+                ar[xx+1][yy]='*';
             }
         }
-        cout<<ans<<"\n";          
+        else{
+         ar[ii][yy]='*';
+        ar[xx][jj]='*';
+        }
+         for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            { cout<<ar[i][j];
+            }
+            cout<<endl;
+        }
+       
         
-
     }
 
 int main() {

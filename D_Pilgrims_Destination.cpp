@@ -54,62 +54,77 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
+map<pair<int,int>,int> weight;
+vi ans(N);
+ vl ener;
+void dfu(ll int u,ll int c,ll int val)
+{
+    vis[u]=1;
+    bool ok = true;
+    for(auto i:adj[u])
+    {    
+      
+        if(vis[i]==0)
+        {     
+            // ans[i]=
+            dfu(i,c+1,c*weight[{u,i}]+val);
+            ok = false;
+
+        }
+    }
+    if(ok)
+    {
+        //cout<<u<<'\n';
+        // ll int kk=ans[u];
+        ener.push_back(val);
+    }
+}
 void solve()
     { 
-        for(int i=1;i<=1000;i++)
+        ll int n,m;
+        cin>>n>>m;
+        vl br(m);
+        fo(i,m) cin>>br[i];
+        fo(i,n) adj[i+1].clear(),vis[i+1]=0;
+        ans.clear();
+        weight.clear();
+        map<int,int> in;
+        for(int i=0;i<n-1;i++)
         {
-            cout<<i*i<<endl;
-            int ok;
-            cin>>ok;
-            if(ok)
-            {
-                break;
-            }
+            int a,b,w;
+            cin>>a>>b>>w;
+            adj[a].push_back(b);
+            adj[b].push_back(a);
+            in[a]++;
+            in[b]++;
+            weight[{a,b}]=w;
+            weight[{b,a}]=w;
         }
-       
-
-        ll int n,m,k;
-        cin>>n>>m>>k;
-        ll int ans=0;
-        if(n%2==0 and m%2==0)
+        ans[1]=0;
+        ener.clear();
+        dfu(1,1,0);
+        // cout<<weight[{1,6}];
+      
+        // for(auto i:in)
+        // {
+        //     if(i.S==1 and i.F!=1) ener.push_back(ans[i.F]);
+        // }
+        sortall(br);
+        sortall(ener);
+        int i=0,j=0,fans=0;
+        while(i<m and j<ener.size())
         {
-            for(int i=2;i<=n;i+=2)
+            if(br[i]>=ener[j])
             {
-                ans^=(i+k);
+                j++;i++;
+                fans++;
             }
-            for(int i=m+2;i<=n+m;i+=2)
-            {
-                ans^=(i+k);
-            }
+            else
+            i++;
         }
-       else if((m+n)%2!=0)
-        {    
-            int nn,mm;
-            if(n%2==0) nn=n,mm=m;
-            else nn=m,mm=n;
-            for(int i=2;i<=nn;i+=2)
-            {
-                 ans^=(i+k);
-            }
-            for(int i=mm+2;i<=n+m;i+=2)
-            {
-                 ans^=(i+k);
-            }
-        }
-        else
-        {
-            for(int i=2;i<=n+m;i+=2)
-            {
-                 ans^=(i+k);
-            }
-            for(int i=min(n,m)+2;i<=max(n,m);i+=2)
-            {
-                 ans^=(i+k);
-            }
-        }
-        cout<<ans<<"\n";          
-        
-
+        cout<<fans<<"\n";
+        return;
+        for(int i=1;i<=n;i++) cout<<ans[i]<<" ";
     }
 
 int main() {

@@ -56,67 +56,71 @@ ll int gcd(ll int a, ll int b)
 int tc=1;
 void solve()
     { 
-        for(int i=1;i<=1000;i++)
-        {
-            cout<<i*i<<endl;
-            int ok;
-            cin>>ok;
-            if(ok)
-            {
-                break;
-            }
-        }
-       
-
-        ll int n,m,k;
-        cin>>n>>m>>k;
-        ll int ans=0;
-        if(n%2==0 and m%2==0)
-        {
-            for(int i=2;i<=n;i+=2)
-            {
-                ans^=(i+k);
-            }
-            for(int i=m+2;i<=n+m;i+=2)
-            {
-                ans^=(i+k);
-            }
-        }
-       else if((m+n)%2!=0)
-        {    
-            int nn,mm;
-            if(n%2==0) nn=n,mm=m;
-            else nn=m,mm=n;
-            for(int i=2;i<=nn;i+=2)
-            {
-                 ans^=(i+k);
-            }
-            for(int i=mm+2;i<=n+m;i+=2)
-            {
-                 ans^=(i+k);
-            }
-        }
-        else
-        {
-            for(int i=2;i<=n+m;i+=2)
-            {
-                 ans^=(i+k);
-            }
-            for(int i=min(n,m)+2;i<=max(n,m);i+=2)
-            {
-                 ans^=(i+k);
-            }
-        }
-        cout<<ans<<"\n";          
-        
-
+       string s;
+       cin>>s;
+       ll int n=s.size();
+       int i=0,j=n-1;
+       while(i<=j)
+       {
+           if(s[i]==s[j])
+           {
+               i++;
+               j--;
+           }
+           else
+           {
+               break;
+           }
+       }
+       if(i==j||i>j)
+       {
+           cout<<"Yes\n";
+           return;
+       }
+       string tmp;
+       for(int i=0;i<n;i++)
+       {
+           if(s[i]=='0')
+           s.erase(s.begin()+i);
+           else break;
+       }
+       for(int j=s.size()-1;j>=0;j--)
+       {
+           if(s[j]=='0')
+           s.erase(s.begin()+j);
+           else break;
+       }
+    //    deb(s);
+       i=0,j=s.size()-1;
+    //    deb2(i,j);
+       while(i<=j)
+       {
+           if(s[i]==s[j])
+           {
+               i++;
+               j--;
+           }
+           else
+           {
+               break;
+           }
+       }
+       if(i==j||i>j)
+       {
+           cout<<"Yes\n";
+           return;
+       }
+       else
+       {
+           cout<<"No\n";
+       }
     }
 
 int main() {
     ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
     srand(chrono::high_resolution_clock::now().time_since_epoch().count());
 
-    wi(t)
+    // wi(t)
     {
       solve();
     }

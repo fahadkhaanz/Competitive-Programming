@@ -56,60 +56,31 @@ ll int gcd(ll int a, ll int b)
 int tc=1;
 void solve()
     { 
-        for(int i=1;i<=1000;i++)
+        string a,b;
+        cin>>a>>b;
+        int dp[22][22];
+        int ans=0;
+        memset(dp,0,sizeof(dp));
+        for(int i=0;i<=a.size();i++)
         {
-            cout<<i*i<<endl;
-            int ok;
-            cin>>ok;
-            if(ok)
+            for(int j=0;j<=b.size();j++)
             {
-                break;
+                if(i==0||j==0) dp[i][j]=0;
+                else
+                {
+                    if(a[i-1]==b[j-1])
+                    {   
+                        dp[i][j]=1+dp[i-1][j-1];
+                        ans=max(ans,dp[i][j]);
+                    }
+                    
+                    else 
+                    dp[i][j]=0;
+                }
             }
-        }
-       
+        }   
 
-        ll int n,m,k;
-        cin>>n>>m>>k;
-        ll int ans=0;
-        if(n%2==0 and m%2==0)
-        {
-            for(int i=2;i<=n;i+=2)
-            {
-                ans^=(i+k);
-            }
-            for(int i=m+2;i<=n+m;i+=2)
-            {
-                ans^=(i+k);
-            }
-        }
-       else if((m+n)%2!=0)
-        {    
-            int nn,mm;
-            if(n%2==0) nn=n,mm=m;
-            else nn=m,mm=n;
-            for(int i=2;i<=nn;i+=2)
-            {
-                 ans^=(i+k);
-            }
-            for(int i=mm+2;i<=n+m;i+=2)
-            {
-                 ans^=(i+k);
-            }
-        }
-        else
-        {
-            for(int i=2;i<=n+m;i+=2)
-            {
-                 ans^=(i+k);
-            }
-            for(int i=min(n,m)+2;i<=max(n,m);i+=2)
-            {
-                 ans^=(i+k);
-            }
-        }
-        cout<<ans<<"\n";          
-        
-
+        cout<<a.size()+b.size()-2*ans<<"\n";
     }
 
 int main() {

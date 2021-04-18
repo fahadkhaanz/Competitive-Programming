@@ -56,60 +56,25 @@ ll int gcd(ll int a, ll int b)
 int tc=1;
 void solve()
     { 
-        for(int i=1;i<=1000;i++)
+        ll int x,r,m;
+        cin>>x>>r>>m;
+        r*=60;
+        m*=60;
+        if(m<r)
+            {
+                 cout<<"NO\n";
+                 return;
+            }
+     
+        ll int ans=x+(r-x)*2;
+        if(ans<=m||r<=x)
         {
-            cout<<i*i<<endl;
-            int ok;
-            cin>>ok;
-            if(ok)
-            {
-                break;
-            }
-        }
-       
-
-        ll int n,m,k;
-        cin>>n>>m>>k;
-        ll int ans=0;
-        if(n%2==0 and m%2==0)
-        {
-            for(int i=2;i<=n;i+=2)
-            {
-                ans^=(i+k);
-            }
-            for(int i=m+2;i<=n+m;i+=2)
-            {
-                ans^=(i+k);
-            }
-        }
-       else if((m+n)%2!=0)
-        {    
-            int nn,mm;
-            if(n%2==0) nn=n,mm=m;
-            else nn=m,mm=n;
-            for(int i=2;i<=nn;i+=2)
-            {
-                 ans^=(i+k);
-            }
-            for(int i=mm+2;i<=n+m;i+=2)
-            {
-                 ans^=(i+k);
-            }
+            cout<<"YES\n";
         }
         else
         {
-            for(int i=2;i<=n+m;i+=2)
-            {
-                 ans^=(i+k);
-            }
-            for(int i=min(n,m)+2;i<=max(n,m);i+=2)
-            {
-                 ans^=(i+k);
-            }
+            cout<<"NO\n";
         }
-        cout<<ans<<"\n";          
-        
-
     }
 
 int main() {

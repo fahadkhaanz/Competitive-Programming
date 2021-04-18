@@ -56,58 +56,60 @@ ll int gcd(ll int a, ll int b)
 int tc=1;
 void solve()
     { 
-        for(int i=1;i<=1000;i++)
+        ll int n;
+        cin>>n;
+        vl ar(n+2);
+        ll int sum=0;
+        fo(i,n+2) cin>>ar[i],sum+=ar[i];
+        sortall(ar);
+        sum-=ar[n+1];
+        ll int tmp=ar[n+1];
+        int in=-1;
+        for(int i=0;i<=n;i++)
         {
-            cout<<i*i<<endl;
-            int ok;
-            cin>>ok;
-            if(ok)
+            if(sum-ar[i]==tmp)
             {
+                in=i;
                 break;
             }
         }
-       
+        //deb(in);
+        if(in!=-1)
+        {
+            for(int i=0;i<=n;i++)
+        {
+            if(in!=i) cout<<ar[i]<<" ";
+        }
+        cout<<endl;
+        return;
+        }
+        sum+=ar[n+1];
+        sum-=ar[n];
+        tmp=ar[n];
+        in=-1;
+         for(int i=0;i<=n+1;i++)
+        {  
+            if(i==n) continue;
+            if(sum-ar[i]==tmp)
+            {
+                in=i;
+                break;
+            }
+        }
+         
+        if(in!=-1)
+        {
+            for(int i=0;i<=n+1;i++)
+        {   
+            if(i==n) continue;
+            if(in!=i) cout<<ar[i]<<" ";
+        }
+        cout<<endl;
+        return;
+        }
+        cout<<"-1\n";
 
-        ll int n,m,k;
-        cin>>n>>m>>k;
-        ll int ans=0;
-        if(n%2==0 and m%2==0)
-        {
-            for(int i=2;i<=n;i+=2)
-            {
-                ans^=(i+k);
-            }
-            for(int i=m+2;i<=n+m;i+=2)
-            {
-                ans^=(i+k);
-            }
-        }
-       else if((m+n)%2!=0)
-        {    
-            int nn,mm;
-            if(n%2==0) nn=n,mm=m;
-            else nn=m,mm=n;
-            for(int i=2;i<=nn;i+=2)
-            {
-                 ans^=(i+k);
-            }
-            for(int i=mm+2;i<=n+m;i+=2)
-            {
-                 ans^=(i+k);
-            }
-        }
-        else
-        {
-            for(int i=2;i<=n+m;i+=2)
-            {
-                 ans^=(i+k);
-            }
-            for(int i=min(n,m)+2;i<=max(n,m);i+=2)
-            {
-                 ans^=(i+k);
-            }
-        }
-        cout<<ans<<"\n";          
+       
         
 
     }

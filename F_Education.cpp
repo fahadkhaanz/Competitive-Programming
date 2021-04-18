@@ -54,62 +54,32 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
+ll int ans=0,cur=0;
+void rec(int i,vl ar,int j,vl br,ll int c,ll int n,ll int )
+{
+    if(cur>=c)
+    {
+        return;
+    }
+    if(cur>=br[j])
+    {
+
+    }
+}
 void solve()
     { 
-        for(int i=1;i<=1000;i++)
+        ll int n,c;
+        cin>>n>>c;
+        vl ar(n);fo(i,n) cin>>ar[i];
+        vl br(n-1);fo(i,n-1) cin>>br[i];
+        for(int i=0;i<n and j<n-1;i++)
         {
-            cout<<i*i<<endl;
-            int ok;
-            cin>>ok;
-            if(ok)
+            if(cur<br[j])
             {
-                break;
+                ll int req=br[j]-cur;
+                ans+=
             }
         }
-       
-
-        ll int n,m,k;
-        cin>>n>>m>>k;
-        ll int ans=0;
-        if(n%2==0 and m%2==0)
-        {
-            for(int i=2;i<=n;i+=2)
-            {
-                ans^=(i+k);
-            }
-            for(int i=m+2;i<=n+m;i+=2)
-            {
-                ans^=(i+k);
-            }
-        }
-       else if((m+n)%2!=0)
-        {    
-            int nn,mm;
-            if(n%2==0) nn=n,mm=m;
-            else nn=m,mm=n;
-            for(int i=2;i<=nn;i+=2)
-            {
-                 ans^=(i+k);
-            }
-            for(int i=mm+2;i<=n+m;i+=2)
-            {
-                 ans^=(i+k);
-            }
-        }
-        else
-        {
-            for(int i=2;i<=n+m;i+=2)
-            {
-                 ans^=(i+k);
-            }
-            for(int i=min(n,m)+2;i<=max(n,m);i+=2)
-            {
-                 ans^=(i+k);
-            }
-        }
-        cout<<ans<<"\n";          
-        
-
     }
 
 int main() {

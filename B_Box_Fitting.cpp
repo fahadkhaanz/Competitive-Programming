@@ -56,60 +56,33 @@ ll int gcd(ll int a, ll int b)
 int tc=1;
 void solve()
     { 
-        for(int i=1;i<=1000;i++)
-        {
-            cout<<i*i<<endl;
-            int ok;
-            cin>>ok;
-            if(ok)
-            {
-                break;
-            }
-        }
-       
-
-        ll int n,m,k;
-        cin>>n>>m>>k;
+        ll int n,w,sum=0,esum=0;
+        cin>>n>>w;
+        vl ar(n);
+        map<ll,ll> mep;
+        fo(i,n) cin>>ar[i],esum+=ar[i],mep[ar[i]]++;
         ll int ans=0;
-        if(n%2==0 and m%2==0)
-        {
-            for(int i=2;i<=n;i+=2)
+        bool f=0;
+        while(esum>0)
+        {   
+            sum=0;
+            for(int i=32;i>=0;i--)
             {
-                ans^=(i+k);
+                ll int k=pow(2,i);
+                while(sum+k<=w and mep[k]>0)
+                {
+                    sum+=k;
+                    mep[k]--;
+                }
             }
-            for(int i=m+2;i<=n+m;i+=2)
-            {
-                ans^=(i+k);
-            }
-        }
-       else if((m+n)%2!=0)
-        {    
-            int nn,mm;
-            if(n%2==0) nn=n,mm=m;
-            else nn=m,mm=n;
-            for(int i=2;i<=nn;i+=2)
-            {
-                 ans^=(i+k);
-            }
-            for(int i=mm+2;i<=n+m;i+=2)
-            {
-                 ans^=(i+k);
-            }
-        }
-        else
-        {
-            for(int i=2;i<=n+m;i+=2)
-            {
-                 ans^=(i+k);
-            }
-            for(int i=min(n,m)+2;i<=max(n,m);i+=2)
-            {
-                 ans^=(i+k);
-            }
-        }
-        cout<<ans<<"\n";          
-        
+            ans++;
+            esum-=sum;
 
+        }
+        cout<<ans<<"\n";
+        return;
+      
+        
     }
 
 int main() {

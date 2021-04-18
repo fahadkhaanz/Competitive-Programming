@@ -56,59 +56,39 @@ ll int gcd(ll int a, ll int b)
 int tc=1;
 void solve()
     { 
-        for(int i=1;i<=1000;i++)
+        ll int n,k;
+        cin>>n>>k;
+        if(n%2==0 and k>=n/2)
         {
-            cout<<i*i<<endl;
-            int ok;
-            cin>>ok;
-            if(ok)
-            {
-                break;
-            }
+             cout<<"-1\n";
+            return;
         }
-       
+        if(n%2!=0 and k>(n/2))
+        {
+            cout<<"-1\n";
+            return;
+        }
+        vl ar(n);
+        fo(i,n) ar[i]=0,vis[i+1]=0;
+        ll int j=n;
+        int i=1;
+        while(k--)
+        {
+            ar[i]=j;
+            vis[j]=1;
+            j--;
+            i+=2;
+        }
+        j=1;
+        for(int i=0;i<n;i++)
+        {   
+            if(ar[i]) continue;
+            ar[i]=j;
+            j++;
 
-        ll int n,m,k;
-        cin>>n>>m>>k;
-        ll int ans=0;
-        if(n%2==0 and m%2==0)
-        {
-            for(int i=2;i<=n;i+=2)
-            {
-                ans^=(i+k);
-            }
-            for(int i=m+2;i<=n+m;i+=2)
-            {
-                ans^=(i+k);
-            }
         }
-       else if((m+n)%2!=0)
-        {    
-            int nn,mm;
-            if(n%2==0) nn=n,mm=m;
-            else nn=m,mm=n;
-            for(int i=2;i<=nn;i+=2)
-            {
-                 ans^=(i+k);
-            }
-            for(int i=mm+2;i<=n+m;i+=2)
-            {
-                 ans^=(i+k);
-            }
-        }
-        else
-        {
-            for(int i=2;i<=n+m;i+=2)
-            {
-                 ans^=(i+k);
-            }
-            for(int i=min(n,m)+2;i<=max(n,m);i+=2)
-            {
-                 ans^=(i+k);
-            }
-        }
-        cout<<ans<<"\n";          
-        
+        fo(i,n) cout<<ar[i]<<" ";
+        cout<<endl;
 
     }
 

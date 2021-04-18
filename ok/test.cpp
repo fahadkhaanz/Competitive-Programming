@@ -54,62 +54,63 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
+
+
+int knapSack(int W, int wt[], int val[], int n)
+{
+    int i, w;
+    int K[n + 1][W + 1];
+ 
+    
+    for(i = 0; i <= n; i++)
+    {
+        for(w = 0; w <= W; w++)
+        {
+            if (i == 0 || w == 0)
+                K[i][w] = 0;
+            else if (wt[i - 1] <= w)
+                K[i][w] = max(val[i - 1] +
+                                K[i - 1][w - wt[i - 1]],
+                                K[i - 1][w]);
+            else
+                K[i][w] = K[i - 1][w];
+        }
+    }
+    return K[n][W];
+}
+
+
+int solution(int A,vector<string>B)
+{
+    int n=B.size();
+    int val[n];
+    int weight[n];
+    int j=0;
+    for(auto i:B)
+    {
+        string s=i;
+        weight[j]=s.size();
+        int v=0;
+        for(auto i:s)
+        {
+            if(i=='c') v+=4;
+            if(i=='w') v+=3;
+            if(i=='m') v+=2;
+            if(i=='o') v+=1;
+        }
+        val[j]=v*weight[j];
+        j++;
+    }
+    return knapSack(A,weight,val,n);
+
+}
 void solve()
     { 
-        for(int i=1;i<=1000;i++)
-        {
-            cout<<i*i<<endl;
-            int ok;
-            cin>>ok;
-            if(ok)
-            {
-                break;
-            }
-        }
-       
-
-        ll int n,m,k;
-        cin>>n>>m>>k;
-        ll int ans=0;
-        if(n%2==0 and m%2==0)
-        {
-            for(int i=2;i<=n;i+=2)
-            {
-                ans^=(i+k);
-            }
-            for(int i=m+2;i<=n+m;i+=2)
-            {
-                ans^=(i+k);
-            }
-        }
-       else if((m+n)%2!=0)
-        {    
-            int nn,mm;
-            if(n%2==0) nn=n,mm=m;
-            else nn=m,mm=n;
-            for(int i=2;i<=nn;i+=2)
-            {
-                 ans^=(i+k);
-            }
-            for(int i=mm+2;i<=n+m;i+=2)
-            {
-                 ans^=(i+k);
-            }
-        }
-        else
-        {
-            for(int i=2;i<=n+m;i+=2)
-            {
-                 ans^=(i+k);
-            }
-            for(int i=min(n,m)+2;i<=max(n,m);i+=2)
-            {
-                 ans^=(i+k);
-            }
-        }
-        cout<<ans<<"\n";          
-        
-
+        int a,n;
+        cin>>a>>n;
+        vector<string> B;
+        for(int i=0;i<n;i++) {string s;cin>>s; B.push_back(s);}
+        cout<<solution(a,B)<<"\n";
     }
 
 int main() {

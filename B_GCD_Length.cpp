@@ -56,59 +56,49 @@ ll int gcd(ll int a, ll int b)
 int tc=1;
 void solve()
     { 
-        for(int i=1;i<=1000;i++)
+        ll int a,b,c;
+        cin>>a>>b>>c;
+        ll int mna=mpow(10,a-1),mxa=pow(10,a)-1;
+        ll int mnb=mpow(10,b-1),mxb=pow(10,b)-1;
+        // for(ll int i=mna;i<=mxa;i++)
+        // {
+        //     for(int j=mnb;j<=mxb;j++)
+        //     {
+        //         ll int k=gcd(i,j);
+        //         int cnt=0;
+        //         while(k>0)
+        //         {
+        //             cnt++;
+        //             k=k/10;
+        //         }
+        //         if(cnt==c)
+        //         {
+        //             cout<<i<<" "<<j<<"\n";
+        //             return;
+        //         }
+        //     }
+        // } 
+        // deb2(mna,mnb);
+        string sa=to_string(mna);
+        string sb=to_string(mnb);
+        if(a>=c and b>=c)
         {
-            cout<<i*i<<endl;
-            int ok;
-            cin>>ok;
-            if(ok)
-            {
-                break;
-            }
+            sb[sb.size()-c]='1';
+            cout<<sa<<" "<<sb<<"\n";
+            return;
         }
-       
-
-        ll int n,m,k;
-        cin>>n>>m>>k;
-        ll int ans=0;
-        if(n%2==0 and m%2==0)
+        if(a<c and b>=c)
         {
-            for(int i=2;i<=n;i+=2)
-            {
-                ans^=(i+k);
-            }
-            for(int i=m+2;i<=n+m;i+=2)
-            {
-                ans^=(i+k);
-            }
+            sb[sb.size()-c]='1';
+            cout<<sa<<" "<<sb<<"\n";
+            return;
         }
-       else if((m+n)%2!=0)
-        {    
-            int nn,mm;
-            if(n%2==0) nn=n,mm=m;
-            else nn=m,mm=n;
-            for(int i=2;i<=nn;i+=2)
-            {
-                 ans^=(i+k);
-            }
-            for(int i=mm+2;i<=n+m;i+=2)
-            {
-                 ans^=(i+k);
-            }
-        }
-        else
+        if(a>=c and b<c)
         {
-            for(int i=2;i<=n+m;i+=2)
-            {
-                 ans^=(i+k);
-            }
-            for(int i=min(n,m)+2;i<=max(n,m);i+=2)
-            {
-                 ans^=(i+k);
-            }
+            sa[sa.size()-c]='1';
+            cout<<sa<<" "<<sb<<"\n";
+            return;
         }
-        cout<<ans<<"\n";          
-        
 
     }
 

@@ -54,62 +54,83 @@ ll int gcd(ll int a, ll int b)
       
 } 
 int tc=1;
+void nextPermutation(vector<ll int> &A) {
+    int i,j,small,big,temp;
+    for(i=A.size()-1;i>0;i--)
+    {
+        if(A[i]>A[i-1])
+            break;
+    }
+    if(i==0)
+    {
+        sort(A.begin(),A.end());
+        return ;
+    }
+    small=i-1;
+    big=i;
+    temp=big;
+    for(i=A.size()-1;i>big;i--)
+    {
+        if(A[i]>A[small] && A[i]<A[temp])
+            temp=i;
+    }
+    int t=A[temp];
+    A[temp]=A[small];
+    A[small]=t;
+    small++;
+    sort(A.begin()+small,A.end());
+}
+
 void solve()
     { 
-        for(int i=1;i<=1000;i++)
-        {
-            cout<<i*i<<endl;
-            int ok;
-            cin>>ok;
-            if(ok)
-            {
-                break;
+        ll int n,cost;
+        cin>>n>>cost;
+        vl ar(n),A(n);
+        fo(i,n) A[i]=i+1;
+        int f=1;
+        for(int i=1;i<=n;i++) f=f*i;
+        int kkkkk=f;
+        while(kkkkk--)
+        {   
+           
+            nextPermutation(A);
+
+            ar=A;
+            //  for(int i=0;i<n;i++) cout<<ar[i]<<" ";
+            //  cout<<endl;
+            //  continue;
+            ll int ans=0;
+            for(int i=0;i<n-1;i++)
+        {   
+            int jj=i; ll int min=ar[i];
+            for(int j=i;j<n;j++)
+            {    
+               
+                if(ar[j]<min)
+                {
+                    min=ar[j];
+                    jj=j;
+                }
             }
+            // if(jj==-1) continue;
+            // deb2(i,jj);
+            reverse(ar.begin()+i,ar.begin()+jj+1);
+            ans+=jj-i+1;
+        }
+        // deb(ans);
+        if(ans==cost)
+        {
+             cout<<"Case #"<<tc++<<": ";
+             for(int i=0;i<n;i++) cout<<A[i]<<" ";
+             cout<<endl;
+             return;
         }
        
-
-        ll int n,m,k;
-        cin>>n>>m>>k;
-        ll int ans=0;
-        if(n%2==0 and m%2==0)
-        {
-            for(int i=2;i<=n;i+=2)
-            {
-                ans^=(i+k);
-            }
-            for(int i=m+2;i<=n+m;i+=2)
-            {
-                ans^=(i+k);
-            }
-        }
-       else if((m+n)%2!=0)
-        {    
-            int nn,mm;
-            if(n%2==0) nn=n,mm=m;
-            else nn=m,mm=n;
-            for(int i=2;i<=nn;i+=2)
-            {
-                 ans^=(i+k);
-            }
-            for(int i=mm+2;i<=n+m;i+=2)
-            {
-                 ans^=(i+k);
-            }
-        }
-        else
-        {
-            for(int i=2;i<=n+m;i+=2)
-            {
-                 ans^=(i+k);
-            }
-            for(int i=min(n,m)+2;i<=max(n,m);i+=2)
-            {
-                 ans^=(i+k);
-            }
-        }
-        cout<<ans<<"\n";          
         
-
+    
+        }
+         cout<<"Case #"<<tc++<<": IMPOSSIBLE\n";
+        
     }
 
 int main() {
