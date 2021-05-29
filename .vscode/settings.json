@@ -10,7 +10,8 @@
         "cmath": "cpp",
         "iosfwd": "cpp",
         "*.tcc": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "complex": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
