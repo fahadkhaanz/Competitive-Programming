@@ -1,27 +1,60 @@
 #include<bits/stdc++.h>
+
 using namespace std;
-#define ll long long
+
+int minSwaps(int arr[], int n)
+{
+	pair<int, int> arrPos[n];
+	for (int i = 0; i < n; i++)
+	{
+		arrPos[i].first = arr[i];
+		arrPos[i].second = i;
+	}
+	sort(arrPos, arrPos + n);
+	vector<bool> vis(n, false);
+
+
+	int ans = 0;
+
+
+	for (int i = 0; i < n; i++)
+	{
+		if (vis[i] || arrPos[i].second == i)
+			continue;
+		int cycle_size = 0;
+		int j = i;
+		while (!vis[j])
+		{
+			vis[j] = 1;
+
+			j = arrPos[j].second;
+			cycle_size++;
+		}
+
+		if (cycle_size > 0)
+		{
+			ans += (cycle_size - 1);
+		}
+	}
+
+	return ans;
+}
+
+
 int main()
 {
+	
     int t;
     cin>>t;
     while(t--)
     {
-        ll int x,y;
-        cin>>x>>y;
         
-        if(y==1)
-        {
-            cout<<"NO\n";
-            continue;
-        }
-        cout<<"YES\n";
-        
-        if(y==2)
-        {
-            cout<<x<<' '<<x*(y+1)<<' '<<y*x*2<<'\n'; 
-            continue;
-        }
-        cout<<x<<" "<<x*(y-1)<<" "<<x*y<<"\n";
+        int n;
+        cin>>n;
+        int arr[n];
+        for(int i=0;i<n;i++) cin>>arr[i];
+        cout << minSwaps(arr, n)<<"\n";
     }
+	
+	return 0;
 }

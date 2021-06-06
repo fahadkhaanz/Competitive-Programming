@@ -31,71 +31,71 @@ using namespace std;
 
 int main()
 {
-//    string a="ab#",b="#c#a#a";
-//    stack<char> st;
-//    for(auto i:a)
-//    {
-//        if(i!='#')
-//        {
-//             st.push(i);
-//        }
-//        else if(i=='#')
-//        {
-//            while(!st.empty())
-//            st.pop();
+   string a="ab#",b="#c#a#a";
+   stack<char> st;
+   for(auto i:a)
+   {
+       if(i!='#')
+       {
+            st.push(i);
+       }
+       else if(i=='#')
+       {
+           if(!st.empty())
+           st.pop();
 
-//        }
+       }
      
 
-//    }
-//    string ansa;
-//    while(!st.empty())
-//    {ansa+=st.top(); st.pop();}
-//     for(auto i:b)
-//    {
-//        if( i!='#')
-//        {
-//             st.push(i);
-//        }
-//        else if(i=='#')
-//        {
-//            while(!st.empty())
-//            st.pop();
+   }
+   string ansa;
+   while(!st.empty())
+   {ansa+=st.top(); st.pop();}
+    for(auto i:b)
+   {
+       if( i!='#')
+       {
+            st.push(i);
+       }
+       else if(i=='#')
+       {
+           if(!st.empty())
+           st.pop();
 
-//        }
+       }
     
 
-//    }
-//    string ansb;
-//    while(!st.empty())
-//    {ansb+=st.top(); st.pop();}
-//    cout<<(ansa==ansb);
+   }
+   string ansb;
+   while(!st.empty())
+   {ansb+=st.top(); st.pop();}
+   cout<<(ansa==ansb);
   
-  int ar[6]={1,1,3,3,4,6}
-  int xo=0;
-  for(int i=0;i<6;i++) 
-      ox=xo^ar[i];
-  int tmp=xo;
-  int c=0;
-  while(tmp>0)
-  {
-      if(tmp&1) break;
-      tmp=tmp>>1;
-      c++;
-  }
-  int mask=1<<c;
-  int num1,num2;
-  for(int i=0;i<6;i++)
-  {
-            int tmp=ar[i];
-            int tc=0;
-            if(mask&ar[i]>0) {num1=ar[i];break;}
+  // int ar[6]={1,1,3,3,4,6}
+  // int xo=0;
+  // for(int i=0;i<6;i++) 
+  //     ox=xo^ar[i];
+  // int tmp=xo;
+  // int c=0;
+  // while(tmp>0)
+  // {
+  //     if(tmp&1) break;
+  //     tmp=tmp>>1;
+  //     c++;
+  // }
+  // int mask=1<<c;
+  // int num1,num2;
+  // for(int i=0;i<6;i++)
+  // {
+  //           int tmp=ar[i];
+  //           int tc=0;
+  //           if(mask&ar[i]>0) {num1=ar[i];break;}
             
-  }
+  // }
  
   
-  num2=xo^num1;
-  cout<<num1<<" "<<num2;
+  // num2=xo^num1;
+  // cout<<num1<<" "<<num2;
 
 }
 
