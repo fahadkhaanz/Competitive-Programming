@@ -1,0 +1,1 @@
+{"name":"Local: interviewmock","url":"f:\\My cp\\interviewmock.cpp","tests":[{"id":1625032624966,"input":"6\n7 9 5 2 8 7","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"f:\\My cp\\interviewmock.cpp","group":"local","local":true}

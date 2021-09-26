@@ -1,0 +1,1 @@
+{"name":"Local: garima walmart","url":"f:\\My cp\\garima walmart.cpp","tests":[{"id":1623581118363,"input":"4\n1 1 2 2","output":""},{"id":1623596338216,"input":"3 \n4 4 5","output":""},{"id":1623596346300,"input":"3\n8 1 8","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"f:\\My cp\\garima walmart.cpp","group":"local","local":true}
