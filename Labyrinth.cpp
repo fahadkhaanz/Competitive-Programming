@@ -45,7 +45,7 @@ const int N = 1006, M = N;
 //=======================
 
 vi adj[N];
-int vis[N][N],dist[N][N];
+int vis[N][N];//dist[N][N];
 int n,m;
 char ar[1001][1001];
 ll int gcd(ll int a, ll int b) 
@@ -58,40 +58,56 @@ ll int gcd(ll int a, ll int b)
 int tc=1;
 int dx[]={-1,0,1,0};
 int dy[]={0,1,0,-1};
+char ch[]={'U','R','D','L'};
 bool isvalid(int x,int y)
 {
     if(x<0||x>=n||y<0||y>=m) return false;
     if(ar[x][y]=='#'||vis[x][y]==1) return false;
     return true;
 }
-void bfs(int x,int y)
+void bfs(int x,int y,int xx, int yy)
 {
-    queue<pair<int,int>>q;
+    queue<pair<pair<int,int>,string>>q;
+
     vis[x][y]=1;
-    dist[x][y]=0;
-    q.push({x,y});
+    //dist[x][y]=0;
+    q.push({{x,y},""});
     bool f=false;
     int ans=0;
     while(!q.empty())
     {
-        int chx=q.front().F;
-        int chy=q.front().S;
+        int chx=q.front().F.first;
+        int chy=q.front().first.second;
+        string vl=q.front().second;
         q.pop();
-        // vis[chx][chy]=1;
-   
+        
+        if(chx==xx and chy==yy)
+        {
+            cout<<"YES\n";
+            cout<<vl.size()<<"\n";
+            cout<<vl<<"\n";
+            return;
+        }
+         //if(vis[chx][chy]==1) continue;
+        //vis[chx][chy]=1;
         for(int i=0;i<4;i++)
         {   
           
             if(isvalid(chx+dx[i],chy+dy[i]))
             {   
-                vis[chx+dx[i]][chy+dy[i]]=1;
-                dist[chx+dx[i]][chy+dy[i]]=1+dist[chx][chy];
-                q.push({chx+dx[i],chy+dy[i]});
+                 vis[chx+dx[i]][chy+dy[i]]=1;
+                // dist[chx+dx[i]][chy+dy[i]]=1+dist[chx][chy];
+                 string in=vl;
+                 in.push_back(ch[i]);
+                 q.push({{chx+dx[i],chy+dy[i]},in});
+                 
+
             }
         }
        
 
     }
+    cout<<"NO\n";
    
 }
 void solve()
@@ -103,7 +119,7 @@ void solve()
         {
             for(int j=0;j<m;j++)
             {   vis[i][j]=0;
-                dist[i][j]=0;
+               // dist[i][j]=0;
                 cin>>ar[i][j];
                 if(ar[i][j]=='A')
                 x=i,y=j;
@@ -111,8 +127,8 @@ void solve()
                 xx=i,yy=j;
             }
         }
-        bfs(x,y);
-        cout<<dist[xx][yy];
+        bfs(x,y,xx,yy);
+        //cout<<dist[xx][yy];
 
     }
 

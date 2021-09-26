@@ -11,7 +11,10 @@
         "iosfwd": "cpp",
         "*.tcc": "cpp",
         "fstream": "cpp",
-        "complex": "cpp"
+        "complex": "cpp",
+        "numeric": "cpp",
+        "functional": "cpp",
+        "valarray": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
